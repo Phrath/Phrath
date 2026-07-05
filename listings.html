@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>物件資訊 — 伯拉大國際地產 Phrath International Realty</title>
 <meta name="description" content="伯拉大國際地產物件資訊，土地、住宅、商辦、店面最新刊登案件，坪數、價格、聯繫方式一目了然。">
+<meta property="og:title" content="物件資訊 — 伯拉大國際地產 Phrath International Realty">
+<meta property="og:description" content="伯拉大國際地產物件資訊，土地、住宅、商辦、店面最新刊登案件，坪數、價格、聯繫方式一目了然。">
+<meta property="og:url" content="https://phrath.github.io/Phrath/listings.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://phrath.github.io/Phrath/phrath-icon-mark.png">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="物件資訊 — 伯拉大國際地產 Phrath International Realty">
+<meta name="twitter:description" content="伯拉大國際地產物件資訊，土地、住宅、商辦、店面最新刊登案件，坪數、價格、聯繫方式一目了然。">
+<meta name="twitter:image" content="https://phrath.github.io/Phrath/phrath-icon-mark.png">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="stylesheet" href="styles.css">
 <style>
@@ -31,6 +41,19 @@
   }
   .filter-tab:hover{border-color:var(--brass);}
   .filter-tab.active{background:var(--ink);color:var(--parchment);border-color:var(--ink);}
+
+  .filter-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px;align-items:center;}
+  .filter-select{
+    padding:9px 16px;font-size:.85rem;letter-spacing:.02em;
+    border:1px solid var(--line);border-radius:20px;cursor:pointer;
+    background:var(--parchment);color:var(--ink);font-family:var(--sans-tc);
+  }
+  .filter-select:focus{outline:none;border-color:var(--brass);}
+  .filter-reset{
+    font-size:.82rem;color:var(--brass);cursor:pointer;background:none;border:none;
+    text-decoration:underline;letter-spacing:.02em;padding:9px 4px;
+  }
+  .result-count{font-size:.8rem;color:var(--stone);margin-top:14px;}
 
   /* 列表 */
   .listing-grid{
@@ -115,6 +138,8 @@
       <a href="about.html">關於我們</a>
       <a href="mission.html">品牌使命</a>
       <a href="services.html">服務項目</a>
+      <a href="area.html">服務區域</a>
+      <a href="international.html">國際房地產</a>
       <a href="listings.html">物件資訊</a>
       <a href="contact.html" class="cta">聯絡我們</a>
     </nav>
@@ -137,6 +162,21 @@
     <button class="filter-tab" data-type="商辦">商辦</button>
     <button class="filter-tab" data-type="店面">店面</button>
   </div>
+  <div class="wrap filter-row">
+    <select class="filter-select" id="deal-select">
+      <option value="全部">交易方式：全部</option>
+      <option value="買賣">買賣</option>
+      <option value="租賃">租賃</option>
+    </select>
+    <select class="filter-select" id="ping-select">
+      <option value="全部">坪數區間：全部</option>
+    </select>
+    <select class="filter-select" id="price-select">
+      <option value="全部">總價／租金區間：全部</option>
+    </select>
+    <button class="filter-reset" id="filter-reset">清除篩選條件</button>
+  </div>
+  <div class="wrap result-count" id="result-count"></div>
 </div>
 
 <section style="padding-top:0;">
@@ -170,6 +210,8 @@
         <a href="about.html">關於我們</a>
         <a href="mission.html">品牌使命</a>
         <a href="services.html">服務項目</a>
+        <a href="area.html">服務區域</a>
+        <a href="international.html">國際房地產</a>
         <a href="listings.html">物件資訊</a>
       </div>
       <div>
@@ -197,15 +239,59 @@
 <script src="listings-data.js"></script>
 <script>
 let currentFilter = '全部';
+let currentDeal = '全部';
+let currentPingRange = '全部';
+let currentPriceRange = '全部';
+
+const pingSelect = document.getElementById('ping-select');
+const priceSelect = document.getElementById('price-select');
+const dealSelect = document.getElementById('deal-select');
+
+// 動態產生坪數區間選項
+PING_RANGES.forEach((r, i) => {
+  const opt = document.createElement('option');
+  opt.value = i;
+  opt.textContent = r.label;
+  pingSelect.appendChild(opt);
+});
+
+function rebuildPriceOptions(){
+  priceSelect.innerHTML = '<option value="全部">總價／租金區間：全部</option>';
+  const ranges = currentDeal === '租賃' ? RENT_PRICE_RANGES : SALE_PRICE_RANGES;
+  ranges.forEach((r, i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = r.label;
+    priceSelect.appendChild(opt);
+  });
+  currentPriceRange = '全部';
+}
+rebuildPriceOptions();
 
 function renderListings(){
   const grid = document.getElementById('listing-grid');
-  const filtered = currentFilter === '全部'
-    ? LISTINGS
-    : LISTINGS.filter(l => l.type === currentFilter);
+  const countEl = document.getElementById('result-count');
+
+  let filtered = LISTINGS.filter(l => {
+    if(currentFilter !== '全部' && l.type !== currentFilter) return false;
+    if(currentDeal !== '全部' && l.dealType !== currentDeal) return false;
+    if(currentPingRange !== '全部'){
+      const r = PING_RANGES[currentPingRange];
+      if(!(l.ping >= r.min && l.ping <= r.max)) return false;
+    }
+    if(currentPriceRange !== '全部'){
+      const ranges = currentDeal === '租賃' ? RENT_PRICE_RANGES : SALE_PRICE_RANGES;
+      const r = ranges[currentPriceRange];
+      if(l.priceValue === null || l.priceValue === undefined) return false;
+      if(!(l.priceValue >= r.min && l.priceValue < r.max || (r.max===Infinity && l.priceValue>=r.min))) return false;
+    }
+    return true;
+  });
+
+  countEl.textContent = `共 ${filtered.length} 筆物件`;
 
   if(filtered.length === 0){
-    grid.innerHTML = '<div class="empty-note">目前尚無此類別物件，歡迎透過 LINE 或聯絡表單洽詢。</div>';
+    grid.innerHTML = '<div class="empty-note">目前尚無符合條件的物件，歡迎透過 LINE 或聯絡表單洽詢，我們將為您優先媒合。</div>';
     return;
   }
 
@@ -215,7 +301,7 @@ function renderListings(){
     <div class="listing-card" onclick="openModal(${realIdx})">
       <img class="lc-img" src="listings-images/${l.images[0]}" alt="${l.title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect width=%22400%22 height=%22300%22 fill=%22%23EDE6D6%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23A69882%22 font-family=%22sans-serif%22 font-size=%2216%22%3E圖片準備中%3C/text%3E%3C/svg%3E'">
       <div class="lc-body">
-        <span class="lc-type">${l.type}</span>
+        <span class="lc-type">${l.type}・${l.dealType}</span>
         <h3 class="lc-title">${l.title}</h3>
         <div class="lc-meta"><span>坪數</span><span>${l.ping} 坪</span></div>
         <div class="lc-meta"><span>地區</span><span>${l.address}</span></div>
@@ -235,7 +321,7 @@ function openModal(idx){
 
   const info = document.getElementById('modal-info');
   info.innerHTML = `
-    <span class="lc-type">${l.type}</span>
+    <span class="lc-type">${l.type}・${l.dealType}</span>
     <h2>${l.title}</h2>
     <div class="modal-detail-grid">
       <div class="mdi"><div class="mdi-label">案件編號</div><div class="mdi-value">${l.id}</div></div>
@@ -266,6 +352,34 @@ document.querySelectorAll('.filter-tab').forEach(tab => {
     currentFilter = tab.dataset.type;
     renderListings();
   });
+});
+
+dealSelect.addEventListener('change', () => {
+  currentDeal = dealSelect.value;
+  rebuildPriceOptions();
+  renderListings();
+});
+
+pingSelect.addEventListener('change', () => {
+  currentPingRange = pingSelect.value;
+  renderListings();
+});
+
+priceSelect.addEventListener('change', () => {
+  currentPriceRange = priceSelect.value;
+  renderListings();
+});
+
+document.getElementById('filter-reset').addEventListener('click', () => {
+  currentFilter = '全部';
+  currentDeal = '全部';
+  currentPingRange = '全部';
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  document.querySelector('.filter-tab[data-type="全部"]').classList.add('active');
+  dealSelect.value = '全部';
+  pingSelect.value = '全部';
+  rebuildPriceOptions();
+  renderListings();
 });
 
 renderListings();
