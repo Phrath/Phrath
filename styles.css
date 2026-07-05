@@ -7,9 +7,9 @@
 
 :root{
   /* 色彩系統 */
-  --ink:      #5A4E42;   /* 主要文字／深色底（淡灰棕色，非黑色） */
+  --ink:      #6E6255;   /* 主要文字／深色底（更柔和溫暖的淡灰棕） */
   --ink-deep: #463C33;   /* 更深一階的灰棕，用於最深背景區塊 */
-  --ink-soft: #6B5F52;   /* 次深色（區塊底，淡灰棕） */
+  --ink-soft: #7D7263;   /* 次深色（區塊底，更柔和） */
   --brass:    #A8823C;   /* 品牌黃銅金（強調色） */
   --brass-lt: #C7A468;   /* 淺黃銅金（深底上使用）*/
   --parchment:#F6F2EA;   /* 暖米白（主背景） */
@@ -197,4 +197,21 @@ footer .footer-bottom{
 @media(max-width:560px){
   footer .footer-grid{grid-template-columns:1fr;}
   .wrap{padding:0 22px;}
+}
+
+/* ─────────────────────────────────────
+   反複製設定：禁止選取文字、拖曳圖片
+───────────────────────────────────── */
+body{
+  -webkit-user-select:none;-moz-user-select:none;
+  -ms-user-select:none;user-select:none;
+  -webkit-touch-callout:none;
+}
+img{
+  -webkit-user-select:none;-webkit-user-drag:none;
+  pointer-events:none;-webkit-touch-callout:none;
+}
+input,textarea,select,button,a{
+  -webkit-user-select:text;-moz-user-select:text;
+  -ms-user-select:text;user-select:text;
 }
