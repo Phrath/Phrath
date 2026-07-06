@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>聯絡我們 — 伯拉大國際地產 Phrath International Realty</title>
+<meta name="description" content="聯絡伯拉大國際地產，透過LINE、Facebook或線上表單與我們聯繫，我們將盡快為您服務。">
+<meta property="og:title" content="聯絡我們 — 伯拉大國際地產 Phrath International Realty">
+<meta property="og:description" content="聯絡伯拉大國際地產，透過LINE、Facebook或線上表單與我們聯繫，我們將盡快為您服務。">
+<meta property="og:url" content="https://phrath.github.io/Phrath/contact.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://phrath.github.io/Phrath/phrath-og-share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="聯絡我們 — 伯拉大國際地產 Phrath International Realty">
+<meta name="twitter:description" content="聯絡伯拉大國際地產，透過LINE、Facebook或線上表單與我們聯繫，我們將盡快為您服務。">
+<meta name="twitter:image" content="https://phrath.github.io/Phrath/phrath-og-share.jpg">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .page-hero{
+    background:var(--ink);color:var(--parchment);
+    padding:180px 0 90px;text-align:center;
+  }
+  .page-hero .eyebrow{justify-content:center;color:var(--brass-lt);}
+  .page-hero .eyebrow::before{background:var(--brass-lt);}
+  .page-hero h1{color:var(--parchment);max-width:700px;margin:0 auto;}
+  .page-hero p{color:rgba(246,242,234,.65);max-width:520px;margin:22px auto 0;}
+
+  .contact-main .wrap{
+    display:grid;grid-template-columns:.85fr 1.15fr;gap:70px;align-items:start;
+  }
+
+  /* 聯絡方式卡片 */
+  .contact-ways{display:flex;flex-direction:column;gap:1px;background:var(--line);}
+  .cway{
+    background:var(--parchment);padding:32px 30px;display:flex;
+    align-items:center;gap:20px;transition:background .3s;
+  }
+  .cway:hover{background:var(--parchment-dim);}
+  .cway-icon{
+    font-family:var(--serif-en);font-style:italic;font-size:1.3rem;
+    color:var(--brass);flex-shrink:0;width:50px;
+  }
+  .cway h3{font-size:1.02rem;margin-bottom:4px;}
+  .cway p{font-size:.86rem;margin:0;}
+
+  /* 表單 */
+  .form-group{margin-bottom:22px;}
+  .form-group label{
+    display:block;font-size:.86rem;color:var(--ink);margin-bottom:8px;
+    letter-spacing:.03em;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea{
+    width:100%;padding:13px 16px;border:1px solid var(--line);
+    background:var(--parchment);color:var(--ink);font-family:var(--sans-tc);
+    font-size:.94rem;border-radius:2px;transition:border-color .3s;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus{outline:none;border-color:var(--brass);}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .form-submit{
+    width:100%;padding:16px;background:var(--ink);color:var(--parchment);
+    border:none;font-size:.95rem;letter-spacing:.08em;cursor:pointer;
+    border-radius:2px;transition:background .3s;margin-top:10px;
+  }
+  .form-submit:hover{background:var(--brass);}
+  .form-note{font-size:.82rem;color:var(--stone);margin-top:16px;text-align:center;}
+  .form-success{
+    display:none;text-align:center;padding:60px 20px;
+  }
+  .form-success.show{display:block;}
+  .form-success h3{margin-bottom:14px;}
+
+  @media(max-width:920px){
+    .contact-main .wrap{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="wrap">
+    <a href="index.html" class="brand-lockup">
+      <img src="phrath-icon-mark.png" alt="伯拉大國際地產 Phrath International Realty">
+    </a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <nav class="nav-links">
+      <a href="index.html">首頁</a>
+      <a href="about.html">關於我們</a>
+      <a href="mission.html">品牌使命</a>
+      <a href="services.html">服務項目</a>
+      <a href="area.html">服務區域</a>
+      <a href="international.html">國際房地產</a>
+      <a href="listings.html">物件資訊</a>
+      <a href="contact.html" class="cta">聯絡我們</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">CONTACT US</div>
+    <h1>願未來的每一步<br>都不忘記今天的感恩</h1>
+    <p>不論是尋找一塊佳美之地，或是為您的產業尋找合適的歸屬，歡迎與我們聯繫。</p>
+  </div>
+</section>
+
+<section class="contact-main">
+  <div class="wrap">
+
+    <!-- 左側：聯絡方式 -->
+    <div>
+      <div class="eyebrow">WAYS TO REACH US</div>
+      <h2 style="margin-bottom:36px;">聯絡方式</h2>
+      <div class="contact-ways">
+        <a href="https://lin.ee/LmzK1NI" target="_blank" class="cway">
+          <div class="cway-icon">Line</div>
+          <div>
+            <h3>LINE 諮詢</h3>
+            <p>最快速的諮詢方式，點擊加入好友</p>
+          </div>
+        </a>
+        <a href="https://www.facebook.com/SLS8888" target="_blank" class="cway">
+          <div class="cway-icon">FB</div>
+          <div>
+            <h3>Facebook</h3>
+            <p>追蹤最新物件與市場資訊</p>
+          </div>
+        </a>
+        <a href="https://www.facebook.com/groups/vv88888/" target="_blank" class="cway">
+          <div class="cway-icon">Group</div>
+          <div>
+            <h3>台中七期房地產社團</h3>
+            <p>土地／商辦／住宅／店面買賣交流</p>
+          </div>
+        </a>
+      </div>
+
+      <div style="margin-top:48px;" class="boundary-frame">
+        <span class="bf-tr"></span><span class="bf-br"></span>
+        <p style="font-family:var(--serif-tc);font-size:1.05rem;color:var(--ink);line-height:1.95;">「你所做的，要交託耶和華，你所謀的，就必成立。」</p>
+        <cite style="display:block;margin-top:14px;font-size:.8rem;color:var(--brass);letter-spacing:.08em;">箴言 16:3</cite>
+      </div>
+    </div>
+
+    <!-- 右側：表單 -->
+    <div>
+      <div class="eyebrow">SEND A MESSAGE</div>
+      <h2 style="margin-bottom:36px;">線上諮詢表單</h2>
+
+      <form id="contact-form" onsubmit="submitContactForm(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>姓名 *</label>
+            <input type="text" name="name" required placeholder="請輸入您的姓名">
+          </div>
+          <div class="form-group">
+            <label>聯絡電話 *</label>
+            <input type="tel" name="phone" required placeholder="請輸入聯絡電話">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="方便我們回覆您的信箱（選填）">
+        </div>
+
+        <div class="form-group">
+          <label>諮詢類型 *</label>
+          <select name="type" required>
+            <option value="">請選擇</option>
+            <option value="土地">土地</option>
+            <option value="商辦">商辦</option>
+            <option value="住宅">住宅</option>
+            <option value="店面">店面</option>
+            <option value="其他">其他</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>需求描述</label>
+          <textarea name="message" rows="5" placeholder="請簡述您的需求，例如：想買/想賣/想租、預算範圍、地區偏好等"></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">送出諮詢表單</button>
+        <p class="form-note">送出後我們將盡快透過電話或LINE與您聯繫</p>
+      </form>
+
+      <div class="form-success" id="form-success">
+        <h3>✦ 感謝您的諮詢</h3>
+        <p>我們已收到您的訊息，將盡快與您聯繫。<br>也歡迎直接加入 LINE 加速聯繫流程。</p>
+        <div style="margin-top:28px;">
+          <a href="https://lin.ee/LmzK1NI" target="_blank" class="btn btn-primary">加入 LINE</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <img src="phrath-logo-ondark.png" alt="Phrath" style="height:96px;margin-bottom:22px;">
+        <p style="font-family:var(--serif-tc);font-size:1.15rem;color:var(--parchment);line-height:1.7;margin-bottom:18px;">榮耀歸於神 祝福臨到人</p>
+        <p style="font-family:var(--serif-tc);font-size:1.2rem;color:var(--parchment);font-weight:600;letter-spacing:.04em;margin-bottom:4px;">伯拉大國際地產</p>
+        <p style="font-family:sans-serif;font-size:.8rem;color:var(--brass-lt);letter-spacing:.1em;margin-bottom:14px;">PHRATH INTERNATIONAL REALTY</p>
+        <p style="font-size:.85rem;color:rgba(246,242,234,.55);">信實築家，豐盛同行</p>
+      </div>
+      <div>
+        <h5>網站導覽</h5>
+        <a href="index.html">首頁</a>
+        <a href="about.html">關於我們</a>
+        <a href="mission.html">品牌使命</a>
+        <a href="services.html">服務項目</a>
+        <a href="area.html">服務區域</a>
+        <a href="international.html">國際房地產</a>
+        <a href="listings.html">物件資訊</a>
+      </div>
+      <div>
+        <h5>服務項目</h5>
+        <a href="services.html">土地買賣</a>
+        <a href="services.html">商辦租售</a>
+        <a href="services.html">住宅租售</a>
+        <a href="services.html">店面租售</a>
+      </div>
+      <div>
+        <h5>聯絡方式</h5>
+        <a href="https://lin.ee/LmzK1NI" target="_blank">LINE 諮詢</a>
+        <a href="https://www.facebook.com/SLS8888" target="_blank">Facebook</a>
+        <a href="https://www.facebook.com/groups/vv88888/" target="_blank">台中七期社團</a>
+        <a href="contact.html">聯絡表單</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Phrath International Realty 伯拉大國際地產</span>
+      <span>Soli Deo Gloria · 唯獨榮耀神</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+function submitContactForm(e){
+  e.preventDefault();
+  var f = document.getElementById('contact-form');
+  var data = {
+    name: f.querySelector('[name="name"]').value,
+    phone: f.querySelector('[name="phone"]').value,
+    email: f.querySelector('[name="email"]').value,
+    type: f.querySelector('[name="type"]').value,
+    message: f.querySelector('[name="message"]').value
+  };
+
+  // 使用 FormSubmit AJAX 端點發送通知信
+  fetch('https://formsubmit.co/ajax/phrath777@gmail.com', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json','Accept':'application/json'},
+    body: JSON.stringify({
+      _subject: '伯拉大國際地產 - 新諮詢：' + data.name,
+      姓名: data.name,
+      電話: data.phone,
+      Email: data.email || '未提供',
+      諮詢類型: data.type,
+      需求描述: data.message || '無'
+    })
+  }).then(function(res){ return res.json(); })
+    .then(function(){ console.log('✅ 諮詢表單已送出'); })
+    .catch(function(err){ console.warn('表單發送提醒:', err); });
+
+  // 顯示成功訊息
+  f.style.display = 'none';
+  document.getElementById('form-success').classList.add('show');
+}
+</script>
+
+<script>
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('copy', e => e.preventDefault());
+document.addEventListener('selectstart', e => e.preventDefault());
+</script>
+
+</body>
+</html>
