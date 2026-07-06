@@ -58,7 +58,7 @@
   }
   .city-detail:nth-child(even) .wrap{direction:rtl;}
   .city-detail:nth-child(even) .wrap > *{direction:ltr;}
-  .city-detail img{width:100%;height:340px;object-fit:cover;border-radius:2px;}
+  .city-detail img{width:100%;height:auto;display:block;border-radius:2px;}
   .city-en{font-family:var(--serif-en);font-style:italic;font-size:1.05rem;color:var(--brass);display:block;margin-bottom:8px;}
   .city-detail .sd-list{margin-top:22px;display:flex;flex-direction:column;gap:12px;}
   .city-detail .sd-list div{display:flex;align-items:baseline;gap:10px;font-size:.9rem;color:var(--ink);}
@@ -74,7 +74,7 @@
     .zone-grid{grid-template-columns:1fr;}
     .city-detail .wrap{grid-template-columns:1fr;}
     .city-detail:nth-child(even) .wrap{direction:ltr;}
-    .city-detail img{height:260px;}
+    .city-detail{padding:60px 0;}
   }
 </style>
 </head>
@@ -161,35 +161,118 @@
   </div>
 </section>
 
-<!-- 日本焦點 -->
+<!-- 日本核心優勢 -->
+<section style="padding-bottom:0;">
+  <div class="wrap">
+    <div class="eyebrow">JAPAN · 亞太成熟市場</div>
+    <h2>日本：東京・大阪・京都</h2>
+    <p class="lede" style="margin-top:16px;max-width:760px;">亞太成熟市場如日本是海外置產的熱門首選：市場高度透明、法規保障健全，外國人可享與本國人相同的永久產權，日圓匯率也相對具吸引力，兼具「穩定收租」與「資產保值」特性。以下盤點三大熱門城市各自的投資範圍與特色。</p>
+  </div>
+</section>
+
+<!-- 東京 -->
 <section class="city-detail">
   <div class="wrap">
-    <img src="intl-apartment-sunset.jpg" alt="日本置產">
+    <img src="intl-apartment-sunset.jpg" alt="東京置產">
     <div>
-      <span class="city-en">Japan · 日本</span>
-      <h2>東京・大阪・京都</h2>
-      <p class="lede" style="margin-top:14px;">日本是海外置產熱門首選：市場高度透明、法規保障健全，外國人可享與本國人相同的永久產權，日圓匯率也相對具吸引力，兼具「穩定收租」與「資產保值」特性。</p>
+      <span class="city-en">Tokyo · 資金避風港</span>
+      <h2>東京</h2>
+      <p class="lede" style="margin-top:14px;">東京作為日本首都及全球核心金融樞紐，是追求長期資產穩健增值的首選。</p>
       <div class="sd-list">
-        <div><strong>東京：</strong>資金避風港，山手線蛋黃區流動性高，空置率低，適合追求長期資產穩健增值。</div>
-        <div><strong>大阪：</strong>房價基期較東京低約三成，租金投報率相對較高，並受惠於觀光紅利。</div>
-        <div><strong>京都：</strong>古都景觀法規限制開發，供給稀缺，具長期收藏與文化資產價值。</div>
-        <div><strong>優勢：</strong>外國人可申請當地銀行貸款，公寓「修繕積金」制度確保長期維護良好。</div>
+        <div><strong>投資範圍：</strong>山手線周邊蛋黃區（港區、澀谷區、新宿區）、交通樞紐旁高層塔樓或精華地段精緻中古公寓。</div>
+        <div><strong>流動性高：</strong>人口不斷淨遷入，租賃與買賣需求極大，空置率低。</div>
+        <div><strong>保值抗跌：</strong>具備極強的抗通膨與保值能力，適合偏好「安全、穩定」的核心資產買家。</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 泰國 / 馬來西亞 / 杜拜 -->
+<!-- 大阪 -->
+<section class="city-detail" style="background:var(--parchment-dim);">
+  <div class="wrap">
+    <img src="intl-poolside-arch.jpg" alt="大阪置產">
+    <div>
+      <span class="city-en">Osaka · 高投報率</span>
+      <h2>大阪</h2>
+      <p class="lede" style="margin-top:14px;">受惠於近年大型開發案及萬博效應，大阪成為目前受高度關注的潛力增值市場。</p>
+      <div class="sd-list">
+        <div><strong>投資範圍：</strong>北區（梅田等商業核心）及中央區、西區（難波、心齋橋一帶商辦或住宅）。</div>
+        <div><strong>高投報率：</strong>房價基期較低，約僅為東京同級物件的六至七成，總預算有限下能獲取較高租金報酬率。</div>
+        <div><strong>觀光紅利：</strong>受惠強勁海外及本土觀光人潮，部分區位適合佈局民宿（需合法申請）或服務式公寓。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 京都 -->
+<section class="city-detail">
+  <div class="wrap">
+    <img src="intl-vintage-interior.jpg" alt="京都置產－古都風貌與老屋改造意象">
+    <div>
+      <span class="city-en">Kyoto · 文化底蘊</span>
+      <h2>京都</h2>
+      <p class="lede" style="margin-top:14px;">京都自成一格，不以追求高週轉率或高帳面投報為主，而是極具收藏價值的資產。</p>
+      <div class="sd-list">
+        <div><strong>投資範圍：</strong>京都市中心（中京區、下京區、東山區），多為傳統町家改造或古都風貌的低層住宅、特色民宿。</div>
+        <div><strong>供給稀缺：</strong>受限於嚴格的古都景觀法規與建築高度限制，新開發案極少，物件具天然稀缺性。</div>
+        <div><strong>文化收藏：</strong>強烈觀光與文化吸引力帶來穩定高端客群，適合偏好長期持有、具人文情懷的資產配置。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 日本核心投資優勢解析 -->
+<section style="background:var(--ink);color:var(--parchment);padding-top:90px;padding-bottom:90px;">
+  <div class="wrap">
+    <div class="eyebrow" style="color:var(--brass-lt);">CORE ADVANTAGES</div>
+    <h2 style="color:var(--parchment);">日本置產・核心投資優勢解析</h2>
+    <div class="area-grid" style="margin-top:48px;background:rgba(246,242,234,.12);">
+      <div class="area-card" style="background:var(--ink);">
+        <div class="ac-district" style="color:var(--brass-lt);">Ownership</div>
+        <h3 style="color:var(--parchment);">產權與法規保障</h3>
+        <p style="color:rgba(246,242,234,.68);">外國人購買日本不動產享有與本國人相同的土地與房屋「永久產權」，無國籍限制且資訊高度透明。</p>
+      </div>
+      <div class="area-card" style="background:var(--ink);">
+        <div class="ac-district" style="color:var(--brass-lt);">Leverage</div>
+        <h3 style="color:var(--parchment);">貸款槓桿機會</h3>
+        <p style="color:rgba(246,242,234,.68);">日本是少數允許外國投資者向當地金融機構申請購屋貸款的亞洲國家，低利率環境下可有效優化資金運用。</p>
+      </div>
+      <div class="area-card" style="background:var(--ink);">
+        <div class="ac-district" style="color:var(--brass-lt);">Maintenance</div>
+        <h3 style="color:var(--parchment);">完善的維護管理</h3>
+        <p style="color:rgba(246,242,234,.68);">日本公寓普遍設有「修繕積金」制度，社區長期維護良好，中古屋物件依然保值。</p>
+      </div>
+    </div>
+    <p style="margin-top:32px;font-size:.82rem;color:rgba(246,242,234,.5);max-width:700px;">提醒：海外置產涉及跨國稅務（如所得稅、遺產稅、買賣相關稅費）及匯率風險，建議在進場前務必洽詢專業的日本不動產仲介或合格的「稅理士」（日本會計師）進行財務評估。</p>
+  </div>
+</section>
+
+<!-- 泰國・馬來西亞 -->
+<section class="city-detail">
+  <div class="wrap">
+    <img src="intl-interior-cream.jpg" alt="泰國馬來西亞置產">
+    <div>
+      <span class="city-en">Thailand · Malaysia · 東南亞新興市場</span>
+      <h2>泰國・馬來西亞</h2>
+      <div class="sd-list">
+        <div><strong>泰國（曼谷・芭達雅・清邁）：</strong>觀光商機熱絡，投報率相對亮眼，房價基期低、入手門檻親民。外國人可合法持有公寓「永久產權」，惟整棟建案外國人持有比例不得超過49%，需留意外國人匯款證明（FET）等資金規範。</div>
+        <div><strong>馬來西亞（吉隆坡・新山）：</strong>生活成本低、文化與語言適應性高，且當地無公設比，購屋坪數即為實際使用空間。具備「第二家園（MM2H）」居留計畫，適合退休或長期持有，各州設有購屋總價門檻（通常約100萬令吉起）。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 杜拜 -->
 <section class="city-detail" style="border-bottom:none;background:var(--parchment-dim);">
   <div class="wrap">
-    <img src="intl-villa-pool.jpg" alt="東南亞與中東置產">
+    <img src="intl-villa-pool.jpg" alt="杜拜置產">
     <div>
-      <span class="city-en">Thailand · Malaysia · UAE</span>
-      <h2>泰國・馬來西亞・杜拜</h2>
+      <span class="city-en">Dubai · UAE · 中東免稅樞紐</span>
+      <h2>杜拜（阿聯酋）</h2>
       <div class="sd-list">
-        <div><strong>泰國（曼谷・芭達雅・清邁）：</strong>觀光商機熱絡，投報率亮眼，房價基期低；外國人可合法持有公寓永久產權，惟整棟建案外國人持有比例不得超過49%。</div>
-        <div><strong>馬來西亞（吉隆坡・新山）：</strong>生活成本低、無公設比，具備「第二家園（MM2H）」居留計畫，適合退休或長期持有，各州設有購屋總價門檻（通常約100萬令吉起）。</div>
-        <div><strong>杜拜（阿聯酋）：</strong>免徵個人所得稅及房產交易稅，外國人可取得永久產權，短租與長租市場皆旺盛，惟市場波動較大，需留意供給過剩風險。</div>
+        <div><strong>免稅優勢：</strong>免徵個人所得稅及房產交易稅，是全球少見的高租金、美元資產配置管道。</div>
+        <div><strong>產權自由：</strong>外國人可取得永久產權，短租與長租市場皆旺盛。</div>
+        <div><strong>風險提醒：</strong>市場波動較大，高度仰賴總體經濟與觀光發展，需防範市場供給過剩的風險。</div>
       </div>
     </div>
   </div>
@@ -202,6 +285,17 @@
       <span class="bf-tr"></span><span class="bf-br"></span>
       <div class="eyebrow">GOOD TO KNOW</div>
       <p>海外置產涉及跨國稅務（如所得稅、遺產稅、買賣相關稅費）及匯率風險，建議在進場前務必洽詢專業的當地不動產仲介或合格會計師，進行完整的財務評估。伯拉大國際地產可協助媒合可信賴的海外服務窗口，並透過代租管服務降低跨國管理難度。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 經文：詩篇23篇 -->
+<section class="scripture">
+  <div class="wrap">
+    <div class="boundary-frame">
+      <span class="bf-tr"></span><span class="bf-br"></span>
+      <blockquote>「耶和華是我的牧者，我必不致缺乏。祂使我躺臥在青草地上，領我在可安歇的水邊。<br>祂使我的靈魂甦醒，為自己的名引導我走義路。我一生一世必有恩惠慈愛隨著我。」</blockquote>
+      <cite>詩篇 23:1-3, 6</cite>
     </div>
   </div>
 </section>

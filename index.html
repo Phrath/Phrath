@@ -45,11 +45,14 @@
     font-size:1.02rem;line-height:2;
   }
   .hero .hero-btns{margin-top:44px;display:flex;gap:16px;flex-wrap:wrap;}
-  .skyline{
-    position:absolute;left:0;right:0;bottom:0;height:46%;z-index:1;
-    opacity:.9;
+  .hero-bg{
+    position:absolute;inset:0;z-index:0;
   }
-  .skyline svg{width:100%;height:100%;display:block;}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 40%;}
+  .hero-bg::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(20,18,15,.72) 0%, rgba(28,25,21,.55) 40%, var(--ink) 96%);
+  }
   .hero-verse{
     position:relative;z-index:2;padding:30px 0 46px;
     border-top:1px solid rgba(246,242,234,.12);
@@ -167,14 +170,9 @@
     </div>
   </div>
 
-  <!-- 天際線剪影 -->
-  <div class="skyline" aria-hidden="true">
-    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-      <polyline points="0,320 0,220 60,220 60,180 110,180 110,240 170,240 170,140 200,140 200,90 230,90 230,240 280,240 280,190 330,190 330,150 360,150 360,240 420,240 420,200 470,200 470,120 500,120 500,60 530,60 530,200 590,200 590,170 640,170 640,240 700,240 700,110 730,110 730,80 760,80 760,240 820,240 820,160 870,160 870,200 920,200 920,100 950,100 950,50 980,50 980,240 1040,240 1040,180 1090,180 1090,220 1140,220 1140,130 1170,130 1170,90 1200,90 1200,240 1260,240 1260,200 1310,200 1310,160 1360,160 1360,240 1440,240 1440,320"
-        fill="none" stroke="#A8823C" stroke-width="1.5" opacity="0.55"/>
-      <polyline points="0,320 0,260 40,260 40,230 90,230 90,280 140,280 140,200 180,200 180,170 220,170 220,280 270,280 270,240 310,240 310,210 350,210 350,280 410,280 410,250 450,250 450,190 490,190 490,150 520,150 520,250 570,250 570,230 610,230 610,280 660,280 660,180 700,180 700,150 740,150 740,280 790,280 790,220 840,220 840,240 890,240 890,170 930,170 930,140 970,140 970,280 1020,280 1020,240 1070,240 1070,260 1110,260 1110,200 1150,200 1150,180 1190,180 1190,280 1240,280 1240,250 1290,250 1290,220 1330,220 1330,280 1440,280 1440,320"
-        fill="#6E6255" stroke="none"/>
-    </svg>
+  <!-- 天際線照片背景 -->
+  <div class="hero-bg" aria-hidden="true">
+    <img src="phrath-international-hero.jpg" alt="">
   </div>
 
   <div class="wrap hero-verse">
