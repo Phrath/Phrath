@@ -115,6 +115,11 @@
   .mdi-label{font-size:.76rem;color:var(--stone);letter-spacing:.1em;margin-bottom:6px;text-transform:uppercase;}
   .mdi-value{font-size:1.05rem;color:var(--ink);}
   .mdi-value.price{color:var(--brass);font-weight:600;}
+  .modal-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+  .modal-tag{
+    font-size:.78rem;color:var(--brass);border:1px solid var(--brass);
+    border-radius:16px;padding:4px 14px;background:rgba(168,130,60,.06);
+  }
   .modal-note{color:var(--stone);font-size:.94rem;line-height:1.9;margin-bottom:28px;}
 
   @media(max-width:920px){
@@ -318,6 +323,8 @@ function renderListings(){
         <h3 class="lc-title">${l.title}</h3>
         <div class="lc-meta"><span>坪數</span><span>${l.ping} 坪</span></div>
         <div class="lc-meta"><span>地區</span><span>${l.address}</span></div>
+        ${l.layout ? `<div class="lc-meta"><span>格局</span><span>${l.layout}</span></div>` : ''}
+        ${l.floor ? `<div class="lc-meta"><span>樓層</span><span>${l.floor}</span></div>` : ''}
         <div class="lc-price">${l.price}</div>
         <div class="lc-id">案件編號：${l.id}</div>
       </div>
@@ -332,6 +339,14 @@ function openModal(idx){
     `<img src="listings-images/${img}" alt="${l.title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect width=%22400%22 height=%22300%22 fill=%22%23EDE6D6%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23A69882%22 font-family=%22sans-serif%22 font-size=%2216%22%3E圖片準備中%3C/text%3E%3C/svg%3E'">`
   ).join('');
 
+  const extraFields = [
+    l.layout   ? {label:'格局', value:l.layout} : null,
+    l.floor    ? {label:'樓層', value:l.floor} : null,
+    l.age      ? {label:'屋齡', value:l.age} : null,
+    l.parking  ? {label:'車位', value:l.parking} : null,
+    l.landUse  ? {label:'使用分區', value:l.landUse} : null,
+  ].filter(Boolean);
+
   const info = document.getElementById('modal-info');
   info.innerHTML = `
     <span class="lc-type">${l.type}・${l.dealType}</span>
@@ -341,7 +356,9 @@ function openModal(idx){
       <div class="mdi"><div class="mdi-label">坪數</div><div class="mdi-value">${l.ping} 坪</div></div>
       <div class="mdi"><div class="mdi-label">地區</div><div class="mdi-value">${l.address}</div></div>
       <div class="mdi"><div class="mdi-label">總價 / 租金</div><div class="mdi-value price">${l.price}</div></div>
+      ${extraFields.map(f => `<div class="mdi"><div class="mdi-label">${f.label}</div><div class="mdi-value">${f.value}</div></div>`).join('')}
     </div>
+    ${l.tags && l.tags.length ? `<div class="modal-tags">${l.tags.map(t=>`<span class="modal-tag">${t}</span>`).join('')}</div>` : ''}
     ${l.note ? `<p class="modal-note">${l.note}</p>` : ''}
     <div style="display:flex;gap:14px;flex-wrap:wrap;">
       <a href="https://lin.ee/LmzK1NI" target="_blank" class="btn btn-primary">${l.contact} →</a>
@@ -350,12 +367,24 @@ function openModal(idx){
   `;
 
   document.getElementById('modal-overlay').classList.add('open');
+  const scrollY = window.scrollY;
+  document.body.dataset.scrollY = scrollY;
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${scrollY}px`;
+  document.body.style.left = '0';
+  document.body.style.right = '0';
   document.body.style.overflow = 'hidden';
 }
 
 function closeModal(){
   document.getElementById('modal-overlay').classList.remove('open');
+  const scrollY = document.body.dataset.scrollY || '0';
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
   document.body.style.overflow = '';
+  window.scrollTo(0, parseInt(scrollY || '0'));
 }
 
 document.querySelectorAll('.filter-tab').forEach(tab => {
