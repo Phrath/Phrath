@@ -99,7 +99,9 @@ header.site-nav .brand-lockup img{height:64px;width:auto;}
 
 @media(max-width:1080px){
   .nav-links{
-    display:none;position:fixed;top:84px;left:0;right:0;bottom:0;
+    display:none;position:fixed;top:84px;left:0;right:0;
+    height:calc(100vh - 84px);
+    overflow-y:auto;
     background:var(--parchment);flex-direction:column;
     justify-content:flex-start;align-items:flex-start;
     padding:40px 32px;gap:28px;
