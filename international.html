@@ -60,9 +60,10 @@
   .city-detail:nth-child(even) .wrap > *{direction:ltr;}
   .city-detail img{width:100%;height:auto;display:block;border-radius:2px;}
   .city-en{font-family:var(--serif-en);font-style:italic;font-size:1.05rem;color:var(--brass);display:block;margin-bottom:8px;}
-  .city-detail .sd-list{margin-top:22px;display:flex;flex-direction:column;gap:12px;}
-  .city-detail .sd-list div{display:flex;align-items:baseline;gap:10px;font-size:.9rem;color:var(--ink);}
-  .city-detail .sd-list div::before{content:'—';color:var(--brass);}
+  .city-detail .sd-list{margin-top:22px;display:flex;flex-direction:column;gap:14px;}
+  .city-detail .sd-list div{font-size:.9rem;color:var(--ink);line-height:1.9;}
+  .city-detail .sd-list div::before{content:'— ';color:var(--brass);}
+  .city-detail .sd-list div strong{white-space:nowrap;color:var(--ink);}
 
   /* 提醒區塊 */
   .advisory{background:var(--parchment-dim);}
