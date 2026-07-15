@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>伯拉大國際地產｜品牌影片</title>
+<meta name="description" content="伯拉大國際地產品牌動畫短片">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#6E6255; --ink-deep:#463C33; --ink-soft:#7D7263;
+    --brass:#A8823C; --brass-lt:#C7A468;
+    --parchment:#F6F2EA; --parchment-dim:#EDE6D6;
+    --stone:#7A7264;
+    --serif-tc:'Noto Serif TC', serif;
+    --serif-en:'Cormorant Garamond', serif;
+    --sans-tc:'Noto Sans TC', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{
+    height:100%;background:#1a1712;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+
+  /* ── 播放器外框：16:9 ── */
+  .player{
+    position:relative;
+    width:100vw; max-width:1280px;
+    aspect-ratio:16/9;
+    background:var(--ink-deep);
+    overflow:hidden;
+    box-shadow:0 40px 100px rgba(0,0,0,.55);
+  }
+  @media(max-width:1280px){ .player{ max-width:100vw; } }
+
+  .scene{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; visibility:hidden;
+    transition:opacity 1.1s ease;
+  }
+  .scene.active{ opacity:1; visibility:visible; z-index:2; }
+  .scene.prev{ opacity:0; visibility:visible; z-index:1; }
+
+  .scene-inner{ text-align:center; padding:4% 8%; position:relative; z-index:2; width:100%; }
+
+  /* ── 進場動畫 ── */
+  @keyframes riseIn{
+    from{opacity:0; transform:translateY(22px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  @keyframes fadeIn{ from{opacity:0;} to{opacity:1;} }
+  @keyframes scaleIn{
+    from{opacity:0; transform:scale(.88);}
+    to{opacity:1; transform:scale(1);}
+  }
+  @keyframes lineGrow{
+    from{width:0;} to{width:100%;}
+  }
+  .fx-rise{ opacity:0; animation:riseIn 1.1s cubic-bezier(.19,1,.22,1) forwards; }
+  .fx-fade{ opacity:0; animation:fadeIn 1.4s ease forwards; }
+  .fx-scale{ opacity:0; animation:scaleIn 1.3s cubic-bezier(.19,1,.22,1) forwards; }
+  .d1{animation-delay:.15s;} .d2{animation-delay:.5s;} .d3{animation-delay:.9s;}
+  .d4{animation-delay:1.3s;} .d5{animation-delay:1.7s;} .d6{animation-delay:2.1s;}
+
+  /* ══════════ Scene 1: Logo Mark ══════════ */
+  #s1{ background:var(--ink-deep); }
+  #s1 .bg-tex{
+    position:absolute; inset:0; opacity:.5;
+    background:radial-gradient(circle at 50% 40%, rgba(199,164,104,.16), transparent 60%);
+  }
+  #s1 img.logo{ width:min(15vw,120px); filter:brightness(0) invert(1) opacity(.94); }
+  #s1 .name-cn{
+    font-family:var(--serif-tc); font-weight:600; letter-spacing:.08em;
+    font-size:clamp(20px,3.4vw,34px); color:var(--parchment); margin-top:clamp(14px,2vw,22px);
+  }
+  #s1 .name-en{
+    font-family:var(--serif-en); font-style:italic; letter-spacing:.24em;
+    font-size:clamp(11px,1.5vw,16px); color:var(--brass-lt); margin-top:8px;
+    text-transform:uppercase;
+  }
+  #s1 .rule{ width:0; height:1px; background:var(--brass); margin:18px auto 0; animation:lineGrow 1.2s ease forwards; animation-delay:1.1s; }
+
+  /* ══════════ Scene 2: Hero photo + tagline ══════════ */
+  #s2{ }
+  #s2 .bg{ position:absolute; inset:0; }
+  #s2 .bg img{ width:100%; height:100%; object-fit:cover; object-position:center 40%; transform:scale(1.08); animation:kenburns 9s ease-out forwards; }
+  @keyframes kenburns{ from{transform:scale(1.14);} to{transform:scale(1.0);} }
+  #s2 .bg::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(38,32,26,.72) 0%, rgba(38,32,26,.35) 45%, rgba(38,32,26,.8) 100%);
+  }
+  #s2 .eyebrow{
+    font-family:var(--serif-en); font-style:italic; letter-spacing:.3em; text-transform:uppercase;
+    font-size:clamp(10px,1.3vw,14px); color:var(--brass-lt);
+  }
+  #s2 h1{
+    font-family:var(--serif-tc); font-weight:600; color:var(--parchment);
+    font-size:clamp(26px,4.6vw,52px); line-height:1.35; margin-top:14px;
+  }
+  #s2 h1 em{ color:var(--brass-lt); font-style:normal; }
+  #s2 .tag{
+    font-family:var(--serif-tc); color:rgba(246,242,234,.8);
+    font-size:clamp(13px,1.7vw,18px); margin-top:16px; letter-spacing:.06em;
+  }
+
+  /* ══════════ Scene 3: Scripture ══════════ */
+  #s3{ background:var(--parchment); }
+  #s3 .frame{ position:relative; max-width:74%; padding:5% 4%; }
+  #s3 .corner{ position:absolute; width:22px; height:22px; border:1.5px solid var(--brass); opacity:0; animation:fadeIn .8s ease forwards; animation-delay:.2s;}
+  #s3 .c-tl{ top:0; left:0; border-right:none; border-bottom:none; }
+  #s3 .c-tr{ top:0; right:0; border-left:none; border-bottom:none; }
+  #s3 .c-bl{ bottom:0; left:0; border-right:none; border-top:none; }
+  #s3 .c-br{ bottom:0; right:0; border-left:none; border-top:none; }
+  #s3 blockquote{
+    font-family:var(--serif-tc); font-weight:500; color:var(--ink);
+    font-size:clamp(17px,2.6vw,30px); line-height:1.9;
+  }
+  #s3 cite{
+    display:block; margin-top:20px; font-style:normal;
+    font-family:var(--sans-tc); letter-spacing:.14em; color:var(--brass);
+    font-size:clamp(10px,1.2vw,13px);
+  }
+
+  /* ══════════ Scene 4: Values ══════════ */
+  #s4{ background:var(--ink); }
+  #s4 .eyebrow{
+    font-family:var(--serif-en); font-style:italic; letter-spacing:.3em; text-transform:uppercase;
+    font-size:clamp(10px,1.3vw,14px); color:var(--brass-lt);
+  }
+  #s4 .values{ display:flex; gap:clamp(20px,4vw,64px); margin-top:clamp(20px,3vw,36px); justify-content:center; }
+  #s4 .value h3{
+    font-family:var(--serif-tc); font-weight:700; color:var(--parchment);
+    font-size:clamp(16px,2.4vw,26px);
+  }
+  #s4 .value span{
+    display:block; font-family:var(--serif-en); font-style:italic; color:var(--brass-lt);
+    font-size:clamp(10px,1.2vw,14px); margin-top:6px; letter-spacing:.06em;
+  }
+
+  /* ══════════ Scene 5: Reach (local + global) ══════════ */
+  #s5{ }
+  #s5 .bg{ position:absolute; inset:0; }
+  #s5 .bg img{ width:100%; height:100%; object-fit:cover; transform:scale(1.1); animation:kenburns2 9s ease-out forwards; }
+  @keyframes kenburns2{ from{transform:scale(1.0);} to{transform:scale(1.14);} }
+  #s5 .bg::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(90deg, rgba(28,25,21,.86) 0%, rgba(28,25,21,.45) 55%, rgba(28,25,21,.75) 100%);
+  }
+  #s5 .scene-inner{ text-align:left; max-width:640px; margin-left:clamp(24px,6vw,90px); }
+  #s5 .eyebrow{
+    font-family:var(--serif-en); font-style:italic; letter-spacing:.3em; text-transform:uppercase;
+    font-size:clamp(10px,1.3vw,14px); color:var(--brass-lt);
+  }
+  #s5 h2{
+    font-family:var(--serif-tc); font-weight:600; color:var(--parchment);
+    font-size:clamp(22px,3.6vw,42px); line-height:1.4; margin-top:14px;
+  }
+  #s5 p{
+    font-family:var(--sans-tc); color:rgba(246,242,234,.72);
+    font-size:clamp(12px,1.5vw,16px); margin-top:14px; line-height:1.8; max-width:460px;
+  }
+
+  /* ══════════ Scene 6: Closing ══════════ */
+  #s6{ background:var(--ink-deep); }
+  #s6 img.logo{ width:min(11vw,88px); filter:brightness(0) invert(1) opacity(.94); }
+  #s6 .final{
+    font-family:var(--serif-en); font-style:italic; color:var(--brass-lt);
+    font-size:clamp(13px,1.8vw,20px); margin-top:18px; letter-spacing:.05em;
+  }
+  #s6 .url{
+    font-family:var(--sans-tc); color:rgba(246,242,234,.6);
+    font-size:clamp(11px,1.3vw,15px); margin-top:22px; letter-spacing:.08em;
+  }
+
+  /* ── 進度條 ── */
+  .progress{ position:absolute; left:0; right:0; bottom:0; height:3px; background:rgba(255,255,255,.12); z-index:5; }
+  .progress-bar{ height:100%; width:0%; background:var(--brass-lt); transition:width .1s linear; }
+
+  /* ── 靜音/控制（極簡） ── */
+  .skiptag{
+    position:absolute; top:16px; right:18px; z-index:6;
+    font-family:var(--sans-tc); font-size:11px; letter-spacing:.1em;
+    color:rgba(246,242,234,.55); cursor:default; user-select:none;
+  }  .backlink{
+    position:absolute; top:16px; left:18px; z-index:6;
+    font-family:var(--sans-tc); font-size:11px; letter-spacing:.06em;
+    color:rgba(246,242,234,.55); text-decoration:none;
+  }
+  .backlink:hover{ color:var(--brass-lt); }
+
+  /* ── 音樂控制鈕 ── */
+  .sound-btn{
+    position:absolute; bottom:16px; right:18px; z-index:6;
+    width:34px; height:34px; border-radius:50%;
+    background:rgba(0,0,0,.32); border:1px solid rgba(246,242,234,.35);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:background .25s;
+  }
+  .sound-btn:hover{ background:rgba(0,0,0,.5); }
+  .sound-btn svg{ width:16px; height:16px; }
+  .sound-btn .ic-on{ display:none; }
+  .sound-btn.playing .ic-on{ display:block; }
+  .sound-btn.playing .ic-off{ display:none; }
+</style>
+</head>
+<body>
+
+<div class="player" id="player">
+
+  <!-- Scene 1 -->
+  <div class="scene active" id="s1">
+    <div class="bg-tex"></div>
+    <div class="scene-inner">
+      <img class="logo fx-scale d1" src="phrath-icon-mark.png" alt="Phrath">
+      <div class="name-cn fx-rise d3">伯拉大國際地產</div>
+      <div class="name-en fx-rise d4">Phrath International Realty</div>
+      <div class="rule"></div>
+    </div>
+  </div>
+
+  <!-- Scene 2 -->
+  <div class="scene" id="s2">
+    <div class="bg"><img src="phrath-international-hero.jpg" alt=""></div>
+    <div class="scene-inner">
+      <div class="eyebrow fx-rise d1">PHRATH INTERNATIONAL REALTY</div>
+      <h1 class="fx-rise d2">榮耀歸於神<br><em>祝福</em>臨到人</h1>
+      <div class="tag fx-rise d4">信實築家，豐盛同行</div>
+    </div>
+  </div>
+
+  <!-- Scene 3 -->
+  <div class="scene" id="s3">
+    <div class="scene-inner">
+      <div class="frame fx-fade d1">
+        <span class="corner c-tl"></span><span class="corner c-tr"></span>
+        <span class="corner c-bl"></span><span class="corner c-br"></span>
+        <blockquote class="fx-rise d2">「用繩量給我的地界，坐落在佳美之處；<br>我的產業實在美好。」</blockquote>
+        <cite class="fx-rise d4">詩篇　16:6</cite>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scene 4 -->
+  <div class="scene" id="s4">
+    <div class="scene-inner">
+      <div class="eyebrow fx-rise d1">OUR VALUES</div>
+      <div class="values">
+        <div class="value fx-rise d2"><h3>信實</h3><span>Faithfulness</span></div>
+        <div class="value fx-rise d3"><h3>誠信</h3><span>Integrity</span></div>
+        <div class="value fx-rise d4"><h3>卓越</h3><span>Excellence</span></div>
+        <div class="value fx-rise d5"><h3>豐盛</h3><span>Blessing</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scene 5 -->
+  <div class="scene" id="s5">
+    <div class="bg"><img src="intl-villa-pool.jpg" alt=""></div>
+    <div class="scene-inner">
+      <div class="eyebrow fx-rise d1">TAICHUNG · WORLDWIDE</div>
+      <h2 class="fx-rise d2">深耕台中七期<br>佈局全球佳美之地</h2>
+      <p class="fx-rise d4">土地、商辦、住宅、店面，到日本、東南亞、中東的國際資產配置，伯拉大陪伴您找到神所預備的產業。</p>
+    </div>
+  </div>
+
+  <!-- Scene 6 -->
+  <div class="scene" id="s6">
+    <div class="scene-inner">
+      <img class="logo fx-scale d1" src="phrath-icon-mark.png" alt="Phrath">
+      <div class="final fx-rise d3">Soli Deo Gloria　·　唯獨榮耀神</div>
+      <div class="url fx-rise d5">phrath.github.io/Phrath</div>
+    </div>
+  </div>
+
+  <div class="skiptag">PHRATH · BRAND FILM</div>
+  <a class="backlink" href="index.html">← 返回官網</a>
+
+  <!-- 背景音樂：把您的音樂檔案命名為 bg-music.mp3，放在網站同一個資料夾即可自動生效 -->
+  <audio id="bgm" loop preload="auto">
+    <source src="bg-music.mp3" type="audio/mpeg">
+  </audio>
+  <button class="sound-btn" id="soundBtn" aria-label="音樂開關">
+    <svg class="ic-off" viewBox="0 0 24 24" fill="none" stroke="#F6F2EA" stroke-width="1.6"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+    <svg class="ic-on" viewBox="0 0 24 24" fill="none" stroke="#F6F2EA" stroke-width="1.6"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+  </button>
+
+  <div class="progress"><div class="progress-bar" id="bar"></div></div>
+</div>
+
+<script>
+const scenes = ['s1','s2','s3','s4','s5','s6'];
+const durations = [3200, 5200, 4600, 4200, 5200, 4200]; // 毫秒
+let idx = 0;
+const bar = document.getElementById('bar');
+
+function playScene(i){
+  scenes.forEach((id,k) => {
+    const el = document.getElementById(id);
+    el.classList.remove('active');
+    if(k === i){
+      // restart animations
+      el.querySelectorAll('[class*="fx-"]').forEach(node => {
+        node.style.animation = 'none';
+        void node.offsetWidth;
+        node.style.animation = '';
+      });
+      requestAnimationFrame(() => el.classList.add('active'));
+    }
+  });
+
+  // progress bar
+  let start = null;
+  const dur = durations[i];
+  function step(ts){
+    if(!start) start = ts;
+    const pct = Math.min((ts - start) / dur, 1);
+    bar.style.width = (pct * 100) + '%';
+    if(pct < 1 && idx === i){ requestAnimationFrame(step); }
+  }
+  bar.style.width = '0%';
+  requestAnimationFrame(step);
+
+  setTimeout(() => {
+    idx = (i + 1) % scenes.length;
+    playScene(idx);
+  }, dur);
+}
+
+// 等待字型完全載入後才開始播放，避免動畫開始時字型還沒下載完成，
+// 導致文字先用備用字型顯示、看起來筆畫不完整或跳動
+function startWhenFontsReady(){
+  if (document.fonts && document.fonts.ready) {
+    Promise.race([
+      document.fonts.ready,
+      new Promise(resolve => setTimeout(resolve, 1500)) // 最多等1.5秒，避免字型載入異常時卡住
+    ]).then(() => playScene(0));
+  } else {
+    playScene(0);
+  }
+}
+startWhenFontsReady();
+
+// ── 背景音樂控制 ──
+const bgm = document.getElementById('bgm');
+const soundBtn = document.getElementById('soundBtn');
+bgm.volume = 0.55;
+
+function trySilentAutoplay(){
+  // 瀏覽器政策：大多禁止「有聲音」自動播放，因此先嘗試靜音自動播放
+  bgm.muted = true;
+  bgm.play().catch(() => {});
+}
+trySilentAutoplay();
+
+soundBtn.addEventListener('click', () => {
+  if (bgm.muted || bgm.paused) {
+    bgm.muted = false;
+    bgm.play().catch(() => {});
+    soundBtn.classList.add('playing');
+  } else {
+    bgm.muted = true;
+    soundBtn.classList.remove('playing');
+  }
+});
+
+// 使用者第一次與頁面互動時，嘗試解除靜音（部分瀏覽器允許）
+document.body.addEventListener('click', function unlockOnce(){
+  document.body.removeEventListener('click', unlockOnce);
+}, { once:true });
+</script>
+
+</body>
+</html>

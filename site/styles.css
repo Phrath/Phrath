@@ -1,0 +1,220 @@
+/* ═══════════════════════════════════════════════════
+   伯拉大國際地產 Phrath International Realty
+   Design Token System
+   ═══════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+:root{
+  /* 色彩系統 */
+  --ink:      #6E6255;   /* 主要文字／深色底（更柔和溫暖的淡灰棕） */
+  --ink-deep: #463C33;   /* 更深一階的灰棕，用於最深背景區塊 */
+  --ink-soft: #7D7263;   /* 次深色（區塊底，更柔和） */
+  --brass:    #A8823C;   /* 品牌黃銅金（強調色） */
+  --brass-lt: #C7A468;   /* 淺黃銅金（深底上使用）*/
+  --parchment:#F6F2EA;   /* 暖米白（主背景） */
+  --parchment-dim:#EDE6D6;/* 次米白（區塊分隔） */
+  --stone:    #7A7264;   /* 次要文字／說明文字 */
+  --line:     rgba(168,130,60,.22); /* 分隔線 */
+
+  --serif-tc: 'Noto Serif TC', serif;
+  --serif-en: 'Cormorant Garamond', serif;
+  --sans-tc:  'Noto Sans TC', sans-serif;
+
+  --container: 1160px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--sans-tc);
+  background:var(--parchment);
+  color:var(--ink);
+  line-height:1.8;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+.wrap{max-width:var(--container);margin:0 auto;padding:0 32px;}
+
+/* ─────────────────────────────────────
+   簽名元素：地界角標框 Boundary Corner Frame
+   呼應 Logo 與詩篇16:6「用繩量給我的地界」
+───────────────────────────────────── */
+.boundary-frame{
+  position:relative;
+  padding:52px 44px;
+}
+.boundary-frame::before,
+.boundary-frame::after,
+.boundary-frame .bf-tr,
+.boundary-frame .bf-br{
+  content:'';position:absolute;width:26px;height:26px;
+  border-color:var(--brass);border-style:solid;border-width:0;
+}
+.boundary-frame::before{top:0;left:0;border-top-width:2px;border-left-width:2px;}
+.boundary-frame::after{bottom:0;left:0;border-bottom-width:2px;border-left-width:2px;}
+.boundary-frame .bf-tr{top:0;right:0;border-top-width:2px;border-right-width:2px;}
+.boundary-frame .bf-br{bottom:0;right:0;border-bottom-width:2px;border-right-width:2px;}
+.boundary-frame.dark::before,
+.boundary-frame.dark::after,
+.boundary-frame.dark .bf-tr,
+.boundary-frame.dark .bf-br{border-color:var(--brass-lt);}
+
+/* ─────────────────────────────────────
+   導覽列
+───────────────────────────────────── */
+header.site-nav{
+  position:sticky;top:0;z-index:500;
+  background:rgba(246,242,234,.92);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+header.site-nav .wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  height:84px;
+}
+header.site-nav .brand-lockup{display:flex;align-items:center;gap:14px;flex-shrink:0;}
+header.site-nav .brand-lockup img{height:64px;width:auto;}
+.nav-links{display:flex;align-items:center;gap:26px;margin-left:auto;}
+.nav-links a{
+  font-size:.86rem;letter-spacing:.03em;color:var(--ink);
+  position:relative;padding:4px 0;transition:color .3s;
+  white-space:nowrap;
+}
+.nav-links a::after{
+  content:'';position:absolute;left:0;bottom:0;width:0;height:1px;
+  background:var(--brass);transition:width .3s;
+}
+.nav-links a:hover{color:var(--brass);}
+.nav-links a:hover::after{width:100%;}
+.nav-links a.cta{
+  background:var(--ink);color:var(--parchment);
+  padding:11px 22px;border-radius:2px;letter-spacing:.06em;
+}
+.nav-links a.cta:hover{background:var(--brass);color:#fff;}
+.nav-links a.cta::after{display:none;}
+
+.nav-toggle{display:none;}
+
+@media(max-width:1080px){
+  .nav-links{
+    display:none;position:fixed;top:84px;left:0;right:0;
+    height:calc(100vh - 84px);
+    overflow-y:auto;
+    background:var(--parchment);flex-direction:column;
+    justify-content:flex-start;align-items:flex-start;
+    padding:40px 32px;gap:28px;
+  }
+  .nav-links.open{display:flex;}
+  .nav-toggle{
+    display:block;background:none;border:none;cursor:pointer;
+    font-size:1.6rem;color:var(--ink);
+  }
+}
+
+/* ─────────────────────────────────────
+   Section 基礎
+───────────────────────────────────── */
+section{padding:110px 0;}
+.eyebrow{
+  font-family:var(--sans-tc);font-size:.76rem;letter-spacing:.32em;
+  color:var(--brass);text-transform:uppercase;margin-bottom:20px;
+  display:flex;align-items:center;gap:14px;
+}
+.eyebrow::before{content:'';width:28px;height:1px;background:var(--brass);}
+h1,h2,h3{font-family:var(--serif-tc);font-weight:600;color:var(--ink);}
+h1{font-size:clamp(2.2rem,4.4vw,3.6rem);line-height:1.3;letter-spacing:.02em;}
+h2{font-size:clamp(1.7rem,3vw,2.5rem);line-height:1.45;letter-spacing:.02em;}
+h3{font-size:1.3rem;line-height:1.6;}
+p{color:var(--stone);}
+.lede{font-size:1.08rem;color:var(--ink);opacity:.85;line-height:2;}
+
+.btn{
+  display:inline-block;padding:15px 38px;font-size:.92rem;
+  letter-spacing:.08em;border-radius:2px;transition:all .3s;
+  border:1px solid var(--ink);
+}
+.btn-primary{background:var(--ink);color:var(--parchment);}
+.btn-primary:hover{background:var(--brass);border-color:var(--brass);color:#fff;}
+.btn-ghost{background:transparent;color:var(--ink);}
+.btn-ghost:hover{background:var(--ink);color:var(--parchment);}
+.btn-ghost.on-dark{border-color:rgba(246,242,234,.5);color:var(--parchment);}
+.btn-ghost.on-dark:hover{background:var(--parchment);color:var(--ink);}
+
+/* ─────────────────────────────────────
+   經文引用區塊（大量使用於全站）
+───────────────────────────────────── */
+.scripture{
+  background:var(--parchment-dim);
+}
+.scripture .boundary-frame{
+  max-width:880px;margin:0 auto;text-align:center;
+}
+.scripture blockquote{
+  font-family:var(--serif-tc);font-size:1.28rem;
+  line-height:2.1;color:var(--ink);font-weight:500;
+}
+.scripture cite{
+  display:block;margin-top:22px;font-family:var(--sans-tc);
+  font-style:normal;font-size:.85rem;color:var(--brass);
+  letter-spacing:.12em;
+}
+
+/* 深色經文區塊 */
+.scripture.on-dark{background:var(--ink);}
+.scripture.on-dark blockquote{color:var(--parchment);}
+.scripture.on-dark cite{color:var(--brass-lt);}
+
+/* ─────────────────────────────────────
+   Footer
+───────────────────────────────────── */
+footer.site-footer{
+  background:var(--ink);color:var(--parchment-dim);
+  padding:80px 0 32px;
+}
+footer .footer-grid{
+  display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;
+  padding-bottom:48px;border-bottom:1px solid rgba(246,242,234,.1);
+}
+footer .f-brand img{height:40px;margin-bottom:16px;}
+footer .f-brand p{color:rgba(246,242,234,.55);font-size:.86rem;line-height:1.9;}
+footer h5{
+  font-size:.76rem;letter-spacing:.18em;color:var(--brass-lt);
+  margin-bottom:16px;text-transform:uppercase;
+}
+footer a{
+  display:block;color:rgba(246,242,234,.65);font-size:.88rem;
+  margin-bottom:10px;transition:color .3s;
+}
+footer a:hover{color:var(--parchment);}
+footer .footer-bottom{
+  padding-top:28px;display:flex;justify-content:space-between;
+  flex-wrap:wrap;gap:12px;font-size:.78rem;color:rgba(246,242,234,.4);
+}
+
+@media(max-width:820px){
+  footer .footer-grid{grid-template-columns:1fr 1fr;}
+  section{padding:72px 0;}
+}
+@media(max-width:560px){
+  footer .footer-grid{grid-template-columns:1fr;}
+  .wrap{padding:0 22px;}
+}
+
+/* ─────────────────────────────────────
+   反複製設定：禁止選取文字、拖曳圖片
+───────────────────────────────────── */
+body{
+  -webkit-user-select:none;-moz-user-select:none;
+  -ms-user-select:none;user-select:none;
+  -webkit-touch-callout:none;
+}
+img{
+  -webkit-user-select:none;-webkit-user-drag:none;
+  pointer-events:none;-webkit-touch-callout:none;
+}
+input,textarea,select,button,a{
+  -webkit-user-select:text;-moz-user-select:text;
+  -ms-user-select:text;user-select:text;
+}

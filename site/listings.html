@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>物件資訊 — 伯拉大國際地產 Phrath International Realty</title>
+<meta name="description" content="伯拉大國際地產物件資訊，土地、住宅、商辦、店面最新刊登案件，坪數、價格、聯繫方式一目了然。">
+<meta property="og:title" content="物件資訊 — 伯拉大國際地產 Phrath International Realty">
+<meta property="og:description" content="伯拉大國際地產物件資訊，土地、住宅、商辦、店面最新刊登案件，坪數、價格、聯繫方式一目了然。">
+<meta property="og:url" content="https://phrath.github.io/Phrath/listings.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://phrath.github.io/Phrath/phrath-og-share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="物件資訊 — 伯拉大國際地產 Phrath International Realty">
+<meta name="twitter:description" content="伯拉大國際地產物件資訊，土地、住宅、商辦、店面最新刊登案件，坪數、價格、聯繫方式一目了然。">
+<meta name="twitter:image" content="https://phrath.github.io/Phrath/phrath-og-share.jpg">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .page-hero{
+    background:var(--ink);color:var(--parchment);
+    padding:170px 0 80px;text-align:center;
+  }
+  .page-hero .eyebrow{justify-content:center;color:var(--brass-lt);}
+  .page-hero .eyebrow::before{background:var(--brass-lt);}
+  .page-hero h1{color:var(--parchment);max-width:700px;margin:0 auto;}
+  .page-hero p{color:rgba(246,242,234,.65);max-width:520px;margin:20px auto 0;}
+
+  /* 篩選標籤 */
+  .filter-bar{
+    position:sticky;top:84px;z-index:100;
+    background:rgba(246,242,234,.95);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);padding:22px 0;
+  }
+  .filter-tabs{display:flex;gap:12px;flex-wrap:wrap;}
+  .filter-tab{
+    padding:9px 22px;font-size:.86rem;letter-spacing:.04em;
+    border:1px solid var(--line);border-radius:20px;cursor:pointer;
+    background:transparent;color:var(--ink);transition:all .25s;
+  }
+  .filter-tab:hover{border-color:var(--brass);}
+  .filter-tab.active{background:var(--ink);color:var(--parchment);border-color:var(--ink);}
+
+  .filter-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px;align-items:center;}
+  .filter-select{
+    padding:9px 16px;font-size:.85rem;letter-spacing:.02em;
+    border:1px solid var(--line);border-radius:20px;cursor:pointer;
+    background:var(--parchment);color:var(--ink);font-family:var(--sans-tc);
+  }
+  .filter-select:focus{outline:none;border-color:var(--brass);}
+  .filter-reset{
+    font-size:.82rem;color:var(--brass);cursor:pointer;background:none;border:none;
+    text-decoration:underline;letter-spacing:.02em;padding:9px 4px;
+  }
+  .result-count{font-size:.8rem;color:var(--stone);margin-top:14px;}
+
+  /* 列表 */
+  .listing-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:32px;
+    padding-top:60px;
+  }
+  .listing-card{
+    background:var(--parchment-dim);cursor:pointer;
+    transition:transform .3s,box-shadow .3s;
+  }
+  .listing-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(28,27,25,.1);}
+  .lc-img{width:100%;height:230px;object-fit:cover;display:block;background:var(--line);}
+  .lc-body{padding:22px 24px;}
+  .lc-type{
+    display:inline-block;font-size:.7rem;letter-spacing:.1em;
+    color:var(--brass);border:1px solid var(--brass);border-radius:20px;
+    padding:3px 12px;margin-bottom:12px;
+  }
+  .lc-title{font-family:var(--serif-tc);font-size:1.1rem;color:var(--ink);margin-bottom:10px;}
+  .lc-meta{display:flex;justify-content:space-between;font-size:.86rem;color:var(--stone);margin-bottom:6px;}
+  .lc-price{font-family:var(--serif-en);font-style:italic;color:var(--brass);font-size:1.15rem;margin-top:10px;}
+  .lc-id{font-size:.74rem;color:var(--stone);letter-spacing:.05em;margin-top:14px;}
+
+  .empty-note{
+    grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--stone);
+  }
+
+  /* 詳情彈窗 */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(20,18,15,.86);
+    z-index:1000;display:none;align-items:flex-start;justify-content:center;
+    overflow-y:auto;padding:60px 20px;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-box{
+    background:var(--parchment);max-width:920px;width:100%;
+    padding:0;position:relative;
+  }
+  .modal-close{
+    position:absolute;top:18px;right:18px;background:var(--ink);color:var(--parchment);
+    width:38px;height:38px;border:none;border-radius:50%;cursor:pointer;
+    font-size:1.1rem;z-index:5;
+  }
+  .modal-gallery{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--ink);
+  }
+  .modal-gallery img{width:100%;height:220px;object-fit:cover;display:block;}
+  .modal-info{padding:44px 48px;}
+  .modal-info .lc-type{margin-bottom:16px;}
+  .modal-info h2{margin-bottom:20px;}
+  .modal-detail-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:20px 40px;
+    margin:28px 0;padding:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .mdi{}
+  .mdi-label{font-size:.76rem;color:var(--stone);letter-spacing:.1em;margin-bottom:6px;text-transform:uppercase;}
+  .mdi-value{font-size:1.05rem;color:var(--ink);}
+  .mdi-value.price{color:var(--brass);font-weight:600;}
+  .modal-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+  .modal-tag{
+    font-size:.78rem;color:var(--brass);border:1px solid var(--brass);
+    border-radius:16px;padding:4px 14px;background:rgba(168,130,60,.06);
+  }
+  .modal-note{color:var(--stone);font-size:.94rem;line-height:1.9;margin-bottom:28px;}
+
+  @media(max-width:920px){
+    .listing-grid{grid-template-columns:repeat(2,1fr);}
+    .modal-gallery{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:768px){
+    /* 手機版篩選列改為一般排版，不再固定佔住畫面上方，
+       避免篩選列過高而遮住下方物件列表 */
+    .filter-bar{position:static;backdrop-filter:none;}
+  }
+  @media(max-width:600px){
+    .listing-grid{grid-template-columns:1fr;}
+    .modal-info{padding:32px 24px;}
+    .modal-detail-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="wrap">
+    <a href="index.html" class="brand-lockup">
+      <img src="phrath-icon-mark.png" alt="伯拉大國際地產 Phrath International Realty">
+    </a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <nav class="nav-links">
+      <a href="index.html">首頁</a>
+      <a href="about.html">關於我們</a>
+      <a href="mission.html">品牌使命</a>
+      <a href="services.html">服務項目</a>
+      <a href="area.html">服務區域</a>
+      <a href="international.html">國際房地產</a>
+      <a href="listings.html">物件資訊</a>
+      <a href="contact.html" class="cta">聯絡我們</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">LISTINGS</div>
+    <h1>物件資訊</h1>
+    <p>土地、住宅、商辦、店面最新刊登案件，坪數、價格、聯繫方式一目了然</p>
+  </div>
+</section>
+
+<section class="scripture" style="padding:64px 0;">
+  <div class="wrap" style="display:flex;flex-direction:column;gap:36px;">
+    <div class="boundary-frame">
+      <span class="bf-tr"></span><span class="bf-br"></span>
+      <blockquote style="font-size:1.1rem;">「若不是耶和華建造房屋，建造的人就枉然勞力；<br>若不是耶和華看守城池，看守的人就枉然警醒。」</blockquote>
+      <cite>詩篇 127:1</cite>
+    </div>
+    <div class="boundary-frame">
+      <span class="bf-tr"></span><span class="bf-br"></span>
+      <blockquote style="font-size:1.1rem;">「凡你們腳掌所踏之地，我都照著我所應許摩西的話賜給你們了。」</blockquote>
+      <cite>約書亞記 1:3</cite>
+    </div>
+    <div class="boundary-frame">
+      <span class="bf-tr"></span><span class="bf-br"></span>
+      <blockquote style="font-size:1.1rem;">「你不要害怕，因為我與你同在；不要驚惶，因為我是你的　神。<br>我必堅固你，我必幫助你；我必用我公義的右手扶持你。」</blockquote>
+      <cite>以賽亞書 41:10</cite>
+    </div>
+  </div>
+</section>
+
+<div class="filter-bar">
+  <div class="wrap filter-tabs">
+    <button class="filter-tab active" data-type="全部">全部</button>
+    <button class="filter-tab" data-type="土地">土地</button>
+    <button class="filter-tab" data-type="住宅">住宅</button>
+    <button class="filter-tab" data-type="商辦">商辦</button>
+    <button class="filter-tab" data-type="店面">店面</button>
+  </div>
+  <div class="wrap filter-row">
+    <select class="filter-select" id="deal-select">
+      <option value="全部">交易方式：全部</option>
+      <option value="買賣">買賣</option>
+      <option value="租賃">租賃</option>
+    </select>
+    <select class="filter-select" id="ping-select">
+      <option value="全部">坪數區間：全部</option>
+    </select>
+    <select class="filter-select" id="price-select">
+      <option value="全部">總價／租金區間：全部</option>
+    </select>
+    <button class="filter-reset" id="filter-reset">清除篩選條件</button>
+  </div>
+  <div class="wrap result-count" id="result-count"></div>
+</div>
+
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="listing-grid" id="listing-grid"></div>
+  </div>
+</section>
+
+<!-- 詳情彈窗 -->
+<div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-gallery" id="modal-gallery"></div>
+    <div class="modal-info" id="modal-info"></div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <img src="phrath-logo-ondark.png" alt="Phrath" style="height:96px;margin-bottom:22px;">
+        <p style="font-family:var(--serif-tc);font-size:1.15rem;color:var(--parchment);line-height:1.7;margin-bottom:18px;">榮耀歸於神 祝福臨到人</p>
+        <p style="font-family:var(--serif-tc);font-size:1.2rem;color:var(--parchment);font-weight:600;letter-spacing:.04em;margin-bottom:4px;">伯拉大國際地產</p>
+        <p style="font-family:sans-serif;font-size:.8rem;color:var(--brass-lt);letter-spacing:.1em;margin-bottom:14px;">PHRATH INTERNATIONAL REALTY</p>
+        <p style="font-size:.85rem;color:rgba(246,242,234,.55);">信實築家，豐盛同行</p>
+      </div>
+      <div>
+        <h5>網站導覽</h5>
+        <a href="index.html">首頁</a>
+        <a href="about.html">關於我們</a>
+        <a href="mission.html">品牌使命</a>
+        <a href="services.html">服務項目</a>
+        <a href="area.html">服務區域</a>
+        <a href="international.html">國際房地產</a>
+        <a href="listings.html">物件資訊</a>
+      </div>
+      <div>
+        <h5>服務項目</h5>
+        <a href="services.html">土地買賣</a>
+        <a href="services.html">商辦租售</a>
+        <a href="services.html">住宅租售</a>
+        <a href="services.html">店面租售</a>
+      </div>
+      <div>
+        <h5>聯絡方式</h5>
+        <a href="https://lin.ee/LmzK1NI" target="_blank">LINE 諮詢</a>
+        <a href="https://www.facebook.com/777Phrath/" target="_blank">Facebook</a>
+        <a href="https://www.facebook.com/groups/vv88888/" target="_blank">台中七期社團</a>
+        <a href="contact.html">聯絡表單</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Phrath International Realty 伯拉大國際地產</span>
+      <span>Soli Deo Gloria · 唯獨榮耀神</span>
+    </div>
+  </div>
+</footer>
+
+<script src="listings-data.js"></script>
+<script>
+let currentFilter = '全部';
+let currentDeal = '全部';
+let currentPingRange = '全部';
+let currentPriceRange = '全部';
+
+const pingSelect = document.getElementById('ping-select');
+const priceSelect = document.getElementById('price-select');
+const dealSelect = document.getElementById('deal-select');
+
+// 動態產生坪數區間選項
+PING_RANGES.forEach((r, i) => {
+  const opt = document.createElement('option');
+  opt.value = i;
+  opt.textContent = r.label;
+  pingSelect.appendChild(opt);
+});
+
+function rebuildPriceOptions(){
+  priceSelect.innerHTML = '<option value="全部">總價／租金區間：全部</option>';
+  const ranges = currentDeal === '租賃' ? RENT_PRICE_RANGES : SALE_PRICE_RANGES;
+  ranges.forEach((r, i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = r.label;
+    priceSelect.appendChild(opt);
+  });
+  currentPriceRange = '全部';
+}
+rebuildPriceOptions();
+
+function renderListings(){
+  const grid = document.getElementById('listing-grid');
+  const countEl = document.getElementById('result-count');
+
+  let filtered = LISTINGS.filter(l => {
+    if(currentFilter !== '全部' && l.type !== currentFilter) return false;
+    if(currentDeal !== '全部' && l.dealType !== currentDeal) return false;
+    if(currentPingRange !== '全部'){
+      const r = PING_RANGES[currentPingRange];
+      if(!(l.ping >= r.min && l.ping <= r.max)) return false;
+    }
+    if(currentPriceRange !== '全部'){
+      const ranges = currentDeal === '租賃' ? RENT_PRICE_RANGES : SALE_PRICE_RANGES;
+      const r = ranges[currentPriceRange];
+      if(l.priceValue === null || l.priceValue === undefined) return false;
+      if(!(l.priceValue >= r.min && l.priceValue < r.max || (r.max===Infinity && l.priceValue>=r.min))) return false;
+    }
+    return true;
+  });
+
+  countEl.textContent = `共 ${filtered.length} 筆物件`;
+
+  if(filtered.length === 0){
+    grid.innerHTML = '<div class="empty-note">目前尚無符合條件的物件，歡迎透過 LINE 或聯絡表單洽詢，我們將為您優先媒合。</div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map((l, idx) => {
+    const realIdx = LISTINGS.indexOf(l);
+    return `
+    <div class="listing-card" onclick="openModal(${realIdx})">
+      <img class="lc-img" src="listings-images/${l.images[0]}" alt="${l.title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect width=%22400%22 height=%22300%22 fill=%22%23EDE6D6%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23A69882%22 font-family=%22sans-serif%22 font-size=%2216%22%3E圖片準備中%3C/text%3E%3C/svg%3E'">
+      <div class="lc-body">
+        <span class="lc-type">${l.type}・${l.dealType}</span>
+        <h3 class="lc-title">${l.title}</h3>
+        <div class="lc-meta"><span>坪數</span><span>${l.ping} 坪</span></div>
+        <div class="lc-meta"><span>地區</span><span>${l.address}</span></div>
+        ${l.layout ? `<div class="lc-meta"><span>格局</span><span>${l.layout}</span></div>` : ''}
+        ${l.floor ? `<div class="lc-meta"><span>樓層</span><span>${l.floor}</span></div>` : ''}
+        <div class="lc-price">${l.price}</div>
+        <div class="lc-id">案件編號：${l.id}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openModal(idx){
+  const l = LISTINGS[idx];
+  const gallery = document.getElementById('modal-gallery');
+  gallery.innerHTML = l.images.slice(0,12).map(img =>
+    `<img src="listings-images/${img}" alt="${l.title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect width=%22400%22 height=%22300%22 fill=%22%23EDE6D6%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23A69882%22 font-family=%22sans-serif%22 font-size=%2216%22%3E圖片準備中%3C/text%3E%3C/svg%3E'">`
+  ).join('');
+
+  const extraFields = [
+    l.layout   ? {label:'格局', value:l.layout} : null,
+    l.floor    ? {label:'樓層', value:l.floor} : null,
+    l.age      ? {label:'屋齡', value:l.age} : null,
+    l.parking  ? {label:'車位', value:l.parking} : null,
+    l.landUse  ? {label:'使用分區', value:l.landUse} : null,
+  ].filter(Boolean);
+
+  const info = document.getElementById('modal-info');
+  info.innerHTML = `
+    <span class="lc-type">${l.type}・${l.dealType}</span>
+    <h2>${l.title}</h2>
+    <div class="modal-detail-grid">
+      <div class="mdi"><div class="mdi-label">案件編號</div><div class="mdi-value">${l.id}</div></div>
+      <div class="mdi"><div class="mdi-label">坪數</div><div class="mdi-value">${l.ping} 坪</div></div>
+      <div class="mdi"><div class="mdi-label">地區</div><div class="mdi-value">${l.address}</div></div>
+      <div class="mdi"><div class="mdi-label">總價 / 租金</div><div class="mdi-value price">${l.price}</div></div>
+      ${extraFields.map(f => `<div class="mdi"><div class="mdi-label">${f.label}</div><div class="mdi-value">${f.value}</div></div>`).join('')}
+    </div>
+    ${l.tags && l.tags.length ? `<div class="modal-tags">${l.tags.map(t=>`<span class="modal-tag">${t}</span>`).join('')}</div>` : ''}
+    ${l.note ? `<p class="modal-note">${l.note}</p>` : ''}
+    <div style="display:flex;gap:14px;flex-wrap:wrap;">
+      <a href="https://lin.ee/LmzK1NI" target="_blank" class="btn btn-primary">${l.contact} →</a>
+      <a href="contact.html" class="btn btn-ghost">填寫諮詢表單</a>
+    </div>
+  `;
+
+  document.getElementById('modal-overlay').classList.add('open');
+  const scrollY = window.scrollY;
+  document.body.dataset.scrollY = scrollY;
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${scrollY}px`;
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  const scrollY = document.body.dataset.scrollY || '0';
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  document.body.style.overflow = '';
+  window.scrollTo(0, parseInt(scrollY || '0'));
+}
+
+document.querySelectorAll('.filter-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentFilter = tab.dataset.type;
+    renderListings();
+  });
+});
+
+dealSelect.addEventListener('change', () => {
+  currentDeal = dealSelect.value;
+  rebuildPriceOptions();
+  renderListings();
+});
+
+pingSelect.addEventListener('change', () => {
+  currentPingRange = pingSelect.value;
+  renderListings();
+});
+
+priceSelect.addEventListener('change', () => {
+  currentPriceRange = priceSelect.value;
+  renderListings();
+});
+
+document.getElementById('filter-reset').addEventListener('click', () => {
+  currentFilter = '全部';
+  currentDeal = '全部';
+  currentPingRange = '全部';
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  document.querySelector('.filter-tab[data-type="全部"]').classList.add('active');
+  dealSelect.value = '全部';
+  pingSelect.value = '全部';
+  rebuildPriceOptions();
+  renderListings();
+});
+
+renderListings();
+</script>
+
+<script>
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('copy', e => e.preventDefault());
+document.addEventListener('selectstart', e => e.preventDefault());
+</script>
+
+<script src="site-music.js"></script>
+</body>
+</html>
