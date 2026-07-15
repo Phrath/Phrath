@@ -191,6 +191,20 @@
     color:rgba(246,242,234,.55); text-decoration:none;
   }
   .backlink:hover{ color:var(--brass-lt); }
+
+  /* ── 音樂控制鈕 ── */
+  .sound-btn{
+    position:absolute; bottom:16px; right:18px; z-index:6;
+    width:34px; height:34px; border-radius:50%;
+    background:rgba(0,0,0,.32); border:1px solid rgba(246,242,234,.35);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:background .25s;
+  }
+  .sound-btn:hover{ background:rgba(0,0,0,.5); }
+  .sound-btn svg{ width:16px; height:16px; }
+  .sound-btn .ic-on{ display:none; }
+  .sound-btn.playing .ic-on{ display:block; }
+  .sound-btn.playing .ic-off{ display:none; }
 </style>
 </head>
 <body>
@@ -210,7 +224,7 @@
 
   <!-- Scene 2 -->
   <div class="scene" id="s2">
-    <div class="bg"><img src="phrath-international-hero.jpg" alt=""></div>
+    <div class="bg"><img src="intl-apartment-sunset.jpg" alt=""></div>
     <div class="scene-inner">
       <div class="eyebrow fx-rise d1">PHRATH INTERNATIONAL REALTY</div>
       <h1 class="fx-rise d2">榮耀歸於神<br><em>祝福</em>臨到人</h1>
@@ -264,6 +278,16 @@
 
   <div class="skiptag">PHRATH · BRAND FILM</div>
   <a class="backlink" href="index.html">← 返回官網</a>
+
+  <!-- 背景音樂：把您的音樂檔案命名為 bg-music.mp3，放在網站同一個資料夾即可自動生效 -->
+  <audio id="bgm" loop preload="auto">
+    <source src="bg-music.mp3" type="audio/mpeg">
+  </audio>
+  <button class="sound-btn" id="soundBtn" aria-label="音樂開關">
+    <svg class="ic-off" viewBox="0 0 24 24" fill="none" stroke="#F6F2EA" stroke-width="1.6"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+    <svg class="ic-on" viewBox="0 0 24 24" fill="none" stroke="#F6F2EA" stroke-width="1.6"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+  </button>
+
   <div class="progress"><div class="progress-bar" id="bar"></div></div>
 </div>
 
@@ -306,7 +330,47 @@ function playScene(i){
   }, dur);
 }
 
-playScene(0);
+// 等待字型完全載入後才開始播放，避免動畫開始時字型還沒下載完成，
+// 導致文字先用備用字型顯示、看起來筆畫不完整或跳動
+function startWhenFontsReady(){
+  if (document.fonts && document.fonts.ready) {
+    Promise.race([
+      document.fonts.ready,
+      new Promise(resolve => setTimeout(resolve, 1500)) // 最多等1.5秒，避免字型載入異常時卡住
+    ]).then(() => playScene(0));
+  } else {
+    playScene(0);
+  }
+}
+startWhenFontsReady();
+
+// ── 背景音樂控制 ──
+const bgm = document.getElementById('bgm');
+const soundBtn = document.getElementById('soundBtn');
+bgm.volume = 0.55;
+
+function trySilentAutoplay(){
+  // 瀏覽器政策：大多禁止「有聲音」自動播放，因此先嘗試靜音自動播放
+  bgm.muted = true;
+  bgm.play().catch(() => {});
+}
+trySilentAutoplay();
+
+soundBtn.addEventListener('click', () => {
+  if (bgm.muted || bgm.paused) {
+    bgm.muted = false;
+    bgm.play().catch(() => {});
+    soundBtn.classList.add('playing');
+  } else {
+    bgm.muted = true;
+    soundBtn.classList.remove('playing');
+  }
+});
+
+// 使用者第一次與頁面互動時，嘗試解除靜音（部分瀏覽器允許）
+document.body.addEventListener('click', function unlockOnce(){
+  document.body.removeEventListener('click', unlockOnce);
+}, { once:true });
 </script>
 
 </body>
