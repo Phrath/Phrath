@@ -106,6 +106,12 @@
     content:''; position:absolute; inset:0;
     background:linear-gradient(180deg, rgba(30,25,20,.78) 0%, rgba(30,25,20,.62) 42%, rgba(30,25,20,.7) 65%, rgba(30,25,20,.85) 100%);
   }
+  #s2 .text-plate{
+    display:inline-block; padding:clamp(24px,4vw,40px) clamp(28px,5vw,56px);
+    background:rgba(20,17,14,.42);
+    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+    border-radius:4px;
+  }
   #s2 .eyebrow{
     font-family:var(--serif-en); font-style:italic; letter-spacing:.3em; text-transform:uppercase;
     font-size:clamp(10px,1.3vw,14px); color:var(--brass-lt);
@@ -244,9 +250,11 @@
   <div class="scene" id="s2">
     <div class="bg"><img src="phrath-international-hero.jpg" alt=""></div>
     <div class="scene-inner">
-      <div class="eyebrow fx-rise d1">PHRATH INTERNATIONAL REALTY</div>
-      <h1 class="fx-rise d2">榮耀歸於神<br><em>祝福</em>臨到人</h1>
-      <div class="tag fx-rise d4">信實築家，豐盛同行</div>
+      <div class="text-plate">
+        <div class="eyebrow fx-rise d1">PHRATH INTERNATIONAL REALTY</div>
+        <h1 class="fx-rise d2">榮耀歸於神<br><em>祝福</em>臨到人</h1>
+        <div class="tag fx-rise d4">信實築家，豐盛同行</div>
+      </div>
     </div>
   </div>
 
