@@ -23,24 +23,24 @@
 <style>
   .page-hero{
     background:var(--ink);color:var(--parchment);
-    padding:170px 0 80px;text-align:center;
+    padding:180px 0 90px;text-align:center;
   }
   .page-hero .eyebrow{justify-content:center;color:var(--brass-lt);}
   .page-hero .eyebrow::before{background:var(--brass-lt);}
   .page-hero h1{color:var(--parchment);max-width:700px;margin:0 auto;}
   .page-hero p{color:rgba(246,242,234,.65);max-width:520px;margin:20px auto 0;}
 
-  /* 篩選標籤 */
   .filter-bar{
     position:sticky;top:84px;z-index:100;
-    background:rgba(246,242,234,.95);backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);padding:22px 0;
+    background:rgba(246,242,234,.96);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    padding:24px 0;
   }
-  .filter-tabs{display:flex;gap:12px;flex-wrap:wrap;}
+  .filter-tabs{display:flex;gap:10px;flex-wrap:wrap;}
   .filter-tab{
-    padding:9px 22px;font-size:.86rem;letter-spacing:.04em;
+    padding:9px 22px;font-size:.85rem;letter-spacing:.03em;
     border:1px solid var(--line);border-radius:20px;cursor:pointer;
-    background:transparent;color:var(--ink);transition:all .25s;
+    background:var(--parchment);color:var(--ink);transition:.25s;
   }
   .filter-tab:hover{border-color:var(--brass);}
   .filter-tab.active{background:var(--ink);color:var(--parchment);border-color:var(--ink);}
@@ -58,63 +58,66 @@
   }
   .result-count{font-size:.8rem;color:var(--stone);margin-top:14px;}
 
-  /* 列表 */
+  .listing-section{padding:70px 0 110px;background:var(--parchment-dim);}
   .listing-grid{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:32px;
-    padding-top:60px;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:34px;margin-top:40px;
   }
   .listing-card{
-    background:var(--parchment-dim);cursor:pointer;
-    transition:transform .3s,box-shadow .3s;
+    background:var(--parchment);cursor:pointer;transition:transform .3s, box-shadow .3s;
+    border:1px solid var(--line);
   }
-  .listing-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(28,27,25,.1);}
-  .lc-img{width:100%;height:230px;object-fit:cover;display:block;background:var(--line);}
-  .lc-body{padding:22px 24px;}
+  .listing-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(70,60,51,.12);}
+  .lc-img-wrap{
+    width:100%;background:var(--parchment-dim);
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .lc-img{width:100%;height:auto;max-height:340px;object-fit:contain;display:block;}
+  .lc-body{padding:24px 26px 28px;}
   .lc-type{
-    display:inline-block;font-size:.7rem;letter-spacing:.1em;
-    color:var(--brass);border:1px solid var(--brass);border-radius:20px;
-    padding:3px 12px;margin-bottom:12px;
+    font-size:.76rem;letter-spacing:.08em;color:var(--brass);
+    border:1px solid var(--brass);border-radius:14px;padding:3px 12px;
+    display:inline-block;margin-bottom:12px;
   }
-  .lc-title{font-family:var(--serif-tc);font-size:1.1rem;color:var(--ink);margin-bottom:10px;}
-  .lc-meta{display:flex;justify-content:space-between;font-size:.86rem;color:var(--stone);margin-bottom:6px;}
-  .lc-price{font-family:var(--serif-en);font-style:italic;color:var(--brass);font-size:1.15rem;margin-top:10px;}
-  .lc-id{font-size:.74rem;color:var(--stone);letter-spacing:.05em;margin-top:14px;}
-
+  .lc-title{font-family:var(--serif-tc);font-size:1.15rem;color:var(--ink);margin-bottom:14px;line-height:1.5;}
+  .lc-meta{display:flex;justify-content:space-between;font-size:.84rem;color:var(--stone);margin-bottom:6px;}
+  .lc-price{font-family:var(--serif-en);font-style:italic;font-size:1.3rem;color:var(--brass);margin-top:14px;}
+  .lc-id{font-size:.72rem;color:var(--stone);opacity:.7;margin-top:8px;letter-spacing:.04em;}
   .empty-note{
     grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--stone);
+    font-size:.95rem;line-height:1.9;
   }
 
-  /* 詳情彈窗 */
+  .listing-scripture{padding:80px 0;background:var(--parchment);}
+
   .modal-overlay{
-    position:fixed;inset:0;background:rgba(20,18,15,.86);
-    z-index:1000;display:none;align-items:flex-start;justify-content:center;
+    display:none;position:fixed;inset:0;background:rgba(20,18,15,.86);
+    z-index:1000;align-items:flex-start;justify-content:center;
     overflow-y:auto;padding:60px 20px;
   }
   .modal-overlay.open{display:flex;}
   .modal-box{
-    background:var(--parchment);max-width:920px;width:100%;
-    padding:0;position:relative;
+    background:var(--parchment);max-width:960px;width:100%;
+    position:relative;margin:auto;
   }
   .modal-close{
-    position:absolute;top:18px;right:18px;background:var(--ink);color:var(--parchment);
-    width:38px;height:38px;border:none;border-radius:50%;cursor:pointer;
-    font-size:1.1rem;z-index:5;
+    position:absolute;top:18px;right:18px;z-index:5;
+    width:38px;height:38px;border-radius:50%;background:rgba(20,18,15,.7);
+    color:#fff;border:none;font-size:1.2rem;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
   }
   .modal-gallery{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--ink);
+    display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--line);
   }
-  .modal-gallery img{width:100%;height:220px;object-fit:cover;display:block;}
+  .modal-gallery img{width:100%;height:280px;object-fit:cover;display:block;}
   .modal-info{padding:44px 48px;}
-  .modal-info .lc-type{margin-bottom:16px;}
-  .modal-info h2{margin-bottom:20px;}
+  .modal-info h2{font-size:1.7rem;margin:10px 0 20px;}
   .modal-detail-grid{
-    display:grid;grid-template-columns:repeat(2,1fr);gap:20px 40px;
-    margin:28px 0;padding:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    display:grid;grid-template-columns:repeat(2,1fr);gap:16px 28px;margin-bottom:24px;
   }
-  .mdi{}
-  .mdi-label{font-size:.76rem;color:var(--stone);letter-spacing:.1em;margin-bottom:6px;text-transform:uppercase;}
-  .mdi-value{font-size:1.05rem;color:var(--ink);}
-  .mdi-value.price{color:var(--brass);font-weight:600;}
+  .mdi-label{font-size:.76rem;color:var(--stone);letter-spacing:.05em;margin-bottom:3px;}
+  .mdi-value{font-size:.98rem;color:var(--ink);}
+  .mdi-value.price{color:var(--brass);font-family:var(--serif-en);font-style:italic;font-size:1.2rem;}
   .modal-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
   .modal-tag{
     font-size:.78rem;color:var(--brass);border:1px solid var(--brass);
@@ -127,8 +130,6 @@
     .modal-gallery{grid-template-columns:repeat(2,1fr);}
   }
   @media(max-width:768px){
-    /* 手機版篩選列改為一般排版，不再固定佔住畫面上方，
-       避免篩選列過高而遮住下方物件列表 */
     .filter-bar{position:static;backdrop-filter:none;}
   }
   @media(max-width:600px){
@@ -153,8 +154,8 @@
       <a href="services.html">服務項目</a>
       <a href="area.html">服務區域</a>
       <a href="international.html">國際房地產</a>
-      <a href="listings.html">物件資訊</a>
-      <a href="contact.html" class="cta">聯絡我們</a>
+      <a href="listings.html" class="cta">物件資訊</a>
+      <a href="contact.html">聯絡我們</a>
     </nav>
   </div>
 </header>
@@ -164,26 +165,6 @@
     <div class="eyebrow">LISTINGS</div>
     <h1>物件資訊</h1>
     <p>土地、住宅、商辦、店面最新刊登案件，坪數、價格、聯繫方式一目了然</p>
-  </div>
-</section>
-
-<section class="scripture" style="padding:64px 0;">
-  <div class="wrap" style="display:flex;flex-direction:column;gap:36px;">
-    <div class="boundary-frame">
-      <span class="bf-tr"></span><span class="bf-br"></span>
-      <blockquote style="font-size:1.1rem;">「若不是耶和華建造房屋，建造的人就枉然勞力；<br>若不是耶和華看守城池，看守的人就枉然警醒。」</blockquote>
-      <cite>詩篇 127:1</cite>
-    </div>
-    <div class="boundary-frame">
-      <span class="bf-tr"></span><span class="bf-br"></span>
-      <blockquote style="font-size:1.1rem;">「凡你們腳掌所踏之地，我都照著我所應許摩西的話賜給你們了。」</blockquote>
-      <cite>約書亞記 1:3</cite>
-    </div>
-    <div class="boundary-frame">
-      <span class="bf-tr"></span><span class="bf-br"></span>
-      <blockquote style="font-size:1.1rem;">「你不要害怕，因為我與你同在；不要驚惶，因為我是你的　神。<br>我必堅固你，我必幫助你；我必用我公義的右手扶持你。」</blockquote>
-      <cite>以賽亞書 41:10</cite>
-    </div>
   </div>
 </section>
 
@@ -212,13 +193,33 @@
   <div class="wrap result-count" id="result-count"></div>
 </div>
 
-<section style="padding-top:0;">
+<section class="listing-section">
   <div class="wrap">
     <div class="listing-grid" id="listing-grid"></div>
   </div>
 </section>
 
-<!-- 詳情彈窗 -->
+<!-- 經文區塊：置於頁面下方、footer 上方 -->
+<section class="listing-scripture">
+  <div class="wrap" style="display:flex;flex-direction:column;gap:36px;">
+    <div class="boundary-frame">
+      <span class="bf-tr"></span><span class="bf-br"></span>
+      <blockquote style="font-size:1.1rem;">「若不是耶和華建造房屋，建造的人就枉然勞力；<br>若不是耶和華看守城池，看守的人就枉然警醒。」</blockquote>
+      <cite>詩篇 127:1</cite>
+    </div>
+    <div class="boundary-frame">
+      <span class="bf-tr"></span><span class="bf-br"></span>
+      <blockquote style="font-size:1.1rem;">「凡你們腳掌所踏之地，我都照著我所應許摩西的話賜給你們了。」</blockquote>
+      <cite>約書亞記 1:3</cite>
+    </div>
+    <div class="boundary-frame">
+      <span class="bf-tr"></span><span class="bf-br"></span>
+      <blockquote style="font-size:1.1rem;">「你不要害怕，因為我與你同在；不要驚惶，因為我是你的　神。<br>我必堅固你，我必幫助你；我必用我公義的右手扶持你。」</blockquote>
+      <cite>以賽亞書 41:10</cite>
+    </div>
+  </div>
+</section>
+
 <div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">✕</button>
@@ -280,7 +281,6 @@ const pingSelect = document.getElementById('ping-select');
 const priceSelect = document.getElementById('price-select');
 const dealSelect = document.getElementById('deal-select');
 
-// 動態產生坪數區間選項
 PING_RANGES.forEach((r, i) => {
   const opt = document.createElement('option');
   opt.value = i;
@@ -300,6 +300,8 @@ function rebuildPriceOptions(){
   currentPriceRange = '全部';
 }
 rebuildPriceOptions();
+
+const PLACEHOLDER_IMG = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect width=%22400%22 height=%22300%22 fill=%22%23EDE6D6%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23A69882%22 font-family=%22sans-serif%22 font-size=%2216%22%3E圖片準備中%3C/text%3E%3C/svg%3E';
 
 function renderListings(){
   const grid = document.getElementById('listing-grid');
@@ -328,11 +330,14 @@ function renderListings(){
     return;
   }
 
-  grid.innerHTML = filtered.map((l, idx) => {
+  grid.innerHTML = filtered.map((l) => {
     const realIdx = LISTINGS.indexOf(l);
+    const firstImg = (l.images && l.images[0]) ? `listings-images/${l.images[0]}` : PLACEHOLDER_IMG;
     return `
     <div class="listing-card" onclick="openModal(${realIdx})">
-      <img class="lc-img" src="listings-images/${l.images[0]}" alt="${l.title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect width=%22400%22 height=%22300%22 fill=%22%23EDE6D6%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23A69882%22 font-family=%22sans-serif%22 font-size=%2216%22%3E圖片準備中%3C/text%3E%3C/svg%3E'">
+      <div class="lc-img-wrap">
+        <img class="lc-img" src="${firstImg}" alt="${l.title}" loading="lazy" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'">
+      </div>
       <div class="lc-body">
         <span class="lc-type">${l.type}・${l.dealType}</span>
         <h3 class="lc-title">${l.title}</h3>
@@ -350,9 +355,11 @@ function renderListings(){
 function openModal(idx){
   const l = LISTINGS[idx];
   const gallery = document.getElementById('modal-gallery');
-  gallery.innerHTML = l.images.slice(0,12).map(img =>
-    `<img src="listings-images/${img}" alt="${l.title}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect width=%22400%22 height=%22300%22 fill=%22%23EDE6D6%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23A69882%22 font-family=%22sans-serif%22 font-size=%2216%22%3E圖片準備中%3C/text%3E%3C/svg%3E'">`
-  ).join('');
+  const imgs = (l.images && l.images.length) ? l.images : [null];
+  gallery.innerHTML = imgs.slice(0,12).map(img => {
+    const src = img ? `listings-images/${img}` : PLACEHOLDER_IMG;
+    return `<img src="${src}" alt="${l.title}" loading="lazy" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'">`;
+  }).join('');
 
   const extraFields = [
     l.layout   ? {label:'格局', value:l.layout} : null,
@@ -441,13 +448,6 @@ document.getElementById('filter-reset').addEventListener('click', () => {
 
 renderListings();
 </script>
-
-<script>
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.addEventListener('copy', e => e.preventDefault());
-document.addEventListener('selectstart', e => e.preventDefault());
-</script>
-
 <script src="site-music.js"></script>
 </body>
 </html>
